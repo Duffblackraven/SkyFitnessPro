@@ -1,7 +1,6 @@
+import React from 'react'
 
-
-const ModalBox = async () => {
-  
+const ModalBox = () => {
   return (
     
     <div className='bg-white p-8 w-360px min-h-48 rounded-lg flex flex-col justify-between shadow-md'>
