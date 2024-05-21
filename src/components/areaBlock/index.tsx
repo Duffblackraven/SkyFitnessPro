@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
 
-const AreaBlock = () => {
-  return (
-    <div>зеленый блок с элементами списка</div>
-  )
+type AreaBlockProp = {
+  text: string,
 }
 
-export default AreaBlock
+const AreaBlock = ({ text } :AreaBlockProp) => {
+  return (
+    <div className="flex items-center">
+      <svg className="w-[19px] h-[19px] mr-[11px]">
+        <use xlinkHref="/sprite.svg#icon-star" />
+      </svg>
+      <p className="text-base">{text}</p>
+    </div>
+  );
+};
+
+export default AreaBlock;
