@@ -2,7 +2,7 @@ import React from 'react'
 
 const PrimaryHeading = ({children}) => {
   return (
-    <h2 className='text-xl mb-10'>{children}</h2>
+    <h1 className='text-2xl mb-10'>{children}</h1>
   )
 }
 //используется на странице упражнения(тренировки), подписывается название тренировки.

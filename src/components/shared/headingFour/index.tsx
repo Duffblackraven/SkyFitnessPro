@@ -1,8 +1,8 @@
 import React from 'react'
 
-const HeadingFour = () => {
+const HeadingFour = ({children}) => {
   return (
-    <h4>мелкий заголовок</h4>
+    <h4 className="text-lg">{children}</h4>
   )
 }
 //в карточке курса, в профиле где имя пользователя(на макете Сергей)

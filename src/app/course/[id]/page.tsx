@@ -1,7 +1,7 @@
 import AreaBlock from "@/components/areaBlock";
 import CourseListItem from "@/components/courseListItem";
 import Header from "@/components/header";
-import PrimaryHeading from "@/components/shared/primaryHeading";
+import SecondaryHeading from "@/components/shared/secondaryHeading";
 import React from "react";
 
 const CoursePage = () => {
@@ -9,7 +9,7 @@ const CoursePage = () => {
     <main className="pl-left pr-right">
       <Header />
       <section className="mb-[60px]">
-        <PrimaryHeading>Подойдет для вас, если:</PrimaryHeading>
+        <SecondaryHeading>Подойдет для вас, если:</SecondaryHeading>
         <div className="grid grid-cols-3 gap-x-[17px] ">
           <CourseListItem
             number={"1"}
@@ -28,7 +28,7 @@ const CoursePage = () => {
         </div>
       </section>
       <section className="mb-[60px]">
-        <PrimaryHeading>Направления</PrimaryHeading>
+        <SecondaryHeading>Направления</SecondaryHeading>
         <div className="grid grid-cols-3 gap-y-9 bg-bright-green p-[30px] rounded-small">
           <AreaBlock text={"Йога для новичков"} />
           <AreaBlock text={"Кундалини-йога"} />

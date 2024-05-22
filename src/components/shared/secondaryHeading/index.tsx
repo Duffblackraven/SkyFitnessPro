@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SecondaryHeading = () => {
+const SecondaryHeading = ({children}) => {
   return (
-    <h3>Заголовок мелкий</h3>
+    <h3 className="text-xl mb-10">{children}</h3>
   )
 }
 // Используется на странице курса(если, направление и т.д.)
