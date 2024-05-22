@@ -1,13 +1,14 @@
 'use client';
 import React from "react";
 import Button from "../shared/button";
+import HeadingFour from "../shared/headingFour";
 
 const ProfileInfoBlock = () => {
   const resetPwd = () =>{};
   const logout = () =>{};
   return (
     <div className="flex flex-col justify-between">
-      <p className="text-lg">Сергей</p>
+      <HeadingFour>Сергей</HeadingFour>
       <div>
         <p className="text-sm mb-2.5">Логин: sergey.petrov96</p>
         <p className="text-sm">Пароль: 4fkhdj880d</p>
