@@ -15,10 +15,10 @@ const Header = () => {
         <Logo />
         {/* <button type="button" className="text-sm bg-bright-green py-4 px-[26px] rounded-full">Войти</button> */}
         <div className="flex items-center relative cursor-pointer" onClick={handleOpen}>
-          <Image src="/icon-header.svg" alt="Логотип" width={42} height={42} />
+          <Image src="/img/icon-header.svg" alt="Логотип" width={42} height={42} />
           <p className="ml-5 mr-3">Сергей</p>
           <svg className="w-[8px] h-[8px]">
-              <use xlinkHref="/sprite.svg#icon-arrow" />
+              <use xlinkHref="/img/sprite.svg#icon-arrow" />
           </svg>
           {isOpen && <UserDropDown />}
         </div>

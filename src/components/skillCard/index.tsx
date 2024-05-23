@@ -1,8 +1,11 @@
+import Image from 'next/image'
 import React from 'react'
 
-const SkillCard = () => {
+const SkillCard = ({ src, alt }) => {
   return (
-    <div>Карточка - обложка курса</div>
+    <div>
+      <Image width={1160} height={310} alt={alt} src={src} />
+    </div>
   )
 }
 

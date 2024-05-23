@@ -4,9 +4,9 @@ import React from 'react'
 const Logo = () => {
   return (
     <div className="flex gap-2.5">
-    <Image src="/logo.svg" alt="Логотип" width={29} height={20} />
+    <Image src="/img/logo.svg" alt="Логотип" width={29} height={20} />
     <Image
-      src="/SkyFitnessPro.svg"
+      src="/img/SkyFitnessPro.svg"
       alt="Логотип"
       width={183}
       height={29}

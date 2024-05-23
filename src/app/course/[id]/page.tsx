@@ -1,42 +1,37 @@
+import { getCourseById } from "@/api/api";
 import AreaBlock from "@/components/areaBlock";
 import CourseListItem from "@/components/courseListItem";
 import Header from "@/components/header";
+import InfoBlock from "@/components/infoBlock";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
+import SkillCard from "@/components/skillCard";
+import { courseData } from "@/lib/courseData";
 import React from "react";
 
-const CoursePage = () => {
+const CoursePage = async ({ params }) => {
+  const course = await getCourseById({ id: params.id })
+  console.log(course)
   return (
     <main className="pl-left pr-right">
       <Header />
       <section className="mb-[60px]">
+        <SkillCard src={courseData[course._id].img} alt={`Картинка для курса ${course.nameRU}`} />
         <SecondaryHeading>Подойдет для вас, если:</SecondaryHeading>
         <div className="grid grid-cols-3 gap-x-[17px] ">
-          <CourseListItem
-            number={"1"}
-            text={"Давно хотели попробовать йогу, но не решались начать"}
-          />
-          <CourseListItem
-            number={"2"}
-            text={
-              "Хотите укрепить позвоночник, избавиться от болей в спине и суставах"
-            }
-          />
-          <CourseListItem
-            number={"3"}
-            text={"Ищете активность, полезную для тела и души"}
-          />
+          {course.fitting.map(
+            (item, index) => <CourseListItem number={index + 1} text={item} key={index} />)}
         </div>
       </section>
       <section className="mb-[60px]">
         <SecondaryHeading>Направления</SecondaryHeading>
+
         <div className="grid grid-cols-3 gap-y-9 bg-bright-green p-[30px] rounded-small">
-          <AreaBlock text={"Йога для новичков"} />
-          <AreaBlock text={"Кундалини-йога"} />
-          <AreaBlock text={"Хатха-йога"} />
-          <AreaBlock text={"Классическая йога"} />
-          <AreaBlock text={"Йогатерапия"} />
-          <AreaBlock text={"Аштанга-йога"} />
+          {course.directions.map(
+            (item, index) => <AreaBlock key={index} text={item} />
+          )}
         </div>
+
+        <InfoBlock courseId={course._id}/>
       </section>
     </main>
   );

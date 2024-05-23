@@ -1,7 +1,7 @@
 import { auth } from "@/firebase/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 
-export  async function signUp({email, password}) {
+export async function signUp({email, password}) {
     try {
         createUserWithEmailAndPassword(auth, email, password)
     } catch (error) {
@@ -9,7 +9,7 @@ export  async function signUp({email, password}) {
     }
   }
   
-  export  async function signIn({email, password}) {
+  export async function signIn({email, password}) {
     try {
         const result = await signInWithEmailAndPassword(auth, email, password)
         return result
