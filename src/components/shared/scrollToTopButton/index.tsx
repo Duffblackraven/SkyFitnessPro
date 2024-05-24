@@ -17,5 +17,6 @@ const ScrollToTopButton = ({ green = false }) => {
     </button>
   );
 };
+//компонент для кнопки прокрутки для главной страницы
 
 export default ScrollToTopButton;

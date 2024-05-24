@@ -17,8 +17,6 @@ const ProfilePage = async () => {
   const data = await getUserCourses({ userId })
 
 
-  
-
   const courses = await mapCourses(data)
   return (
     <>

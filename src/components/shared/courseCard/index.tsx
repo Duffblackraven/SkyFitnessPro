@@ -9,9 +9,10 @@ type CardProp = {
   duration: number;
   progress: number;
   img: string;
+  showProgressAndButton?: boolean;
 };
 
-const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => {
+const CourseCard = ({ name, time, duration, progress, img, item, showProgressAndButton = false}: CardProp) => {
   return (
     <div className="bg-white rounded relative shadow-base">
       <button
@@ -48,15 +49,24 @@ const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => 
             <p className="text-min">Сложность</p>
           </div>
         </div>
-        <div className="mb-10">
+        {showProgressAndButton && (
+          <>
+                  <div className="mb-10">
+          <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
+        </div>
+        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
+        
+          Продолжить
+        </Link>
+          </>
+        )}
+        {/* <div className="mb-10">
           <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
         </div>
         <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
 
-
-
           Продолжить
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
