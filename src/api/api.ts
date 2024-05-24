@@ -1,5 +1,6 @@
 import { transormData } from "@/helpers/transformData"
 
+
 const API_URL = 'https://skyfitnesspro-4eb46-default-rtdb.europe-west1.firebasedatabase.app/'
 
 //получение всех курсов на главной странице 
@@ -11,7 +12,7 @@ export async function getCourses() {
             throw new Error('Заглушечка-хуеюшечка')
         }
         const data = await response.json()
-        return transormData(data)
+      return data
     } catch (error) {
         throw error
     }
@@ -91,7 +92,7 @@ export async function addCourse({ courseId, userId }) {
         }, {});
 
         const response = await fetch(
-            `${API_URL} / users / ${userId} / ${courseId}.json`,
+            `${API_URL}/users/${userId}/${courseId}.json`,
             {
                 method: "PUT",
                 body: JSON.stringify(progressObj),
@@ -105,5 +106,26 @@ export async function addCourse({ courseId, userId }) {
         return response.json();
     } catch (error) {
         throw error;
+    }
+}
+
+
+export async function getUserCourses({ userId }) {
+    if(!userId){
+        throw new Error("Нет")
+    }
+    try {
+        console.log(userId)
+        const response = await fetch(`${API_URL}users/${userId}.json`);
+        if (!response.ok) {
+            throw new Error("Не получилось загрузить курсы");
+        }
+
+        const data = await response.json();
+        console.log(response)
+        return data
+    }
+    catch (error) {
+        throw error
     }
 }
