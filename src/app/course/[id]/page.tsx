@@ -6,6 +6,7 @@ import InfoBlock from "@/components/infoBlock";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
 import SkillCard from "@/components/skillCard";
 import { courseData } from "@/lib/courseData";
+
 import React from "react";
 
 const CoursePage = async ({ params }) => {
