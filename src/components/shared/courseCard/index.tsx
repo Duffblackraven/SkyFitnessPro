@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import ProgressBar from "../progressBar";
+import Link from "next/link";
 
 type CardProp = {
   name: string;
@@ -10,7 +11,7 @@ type CardProp = {
   img: string;
 };
 
-const CourseCard = ({ name, time, duration, progress, img }: CardProp) => {
+const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => {
   return (
     <div className="bg-white rounded relative shadow-base">
       <button
@@ -46,14 +47,14 @@ const CourseCard = ({ name, time, duration, progress, img }: CardProp) => {
           </div>
         </div>
         <div className="mb-10">
-        <ProgressBar name = {"progressCard"} id = {"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`}/>
+          <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
         </div>
-        <button
-          className="w-full bg-bright-green py-4 px-[26px] rounded text-sm"
-          type="button"
-        >
+        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
+          
+          
+        
           Продолжить
-        </button>
+        </Link>
       </div>
     </div>
   );
