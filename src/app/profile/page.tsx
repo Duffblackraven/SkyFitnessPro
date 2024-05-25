@@ -17,8 +17,11 @@ const ProfilePage = async () => {
   const data = await getUserCourses({ userId })
 
 
+<<<<<<< HEAD
   
 
+=======
+>>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
   const courses = await mapCourses(data)
   return (
     <>

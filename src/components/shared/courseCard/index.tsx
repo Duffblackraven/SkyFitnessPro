@@ -9,9 +9,14 @@ type CardProp = {
   duration: number;
   progress: number;
   img: string;
+  showProgressAndButton?: boolean;
 };
 
+<<<<<<< HEAD
 const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => {
+=======
+const CourseCard = ({ name, time, duration, progress, img, item, showProgressAndButton = false}: CardProp) => {
+>>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
   return (
     <div className="bg-white rounded relative shadow-base">
       <button
@@ -23,8 +28,10 @@ const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => 
           <use xlinkHref="/sprite.svg#icon-delete" />
         </svg>
       </button>
-      <Image src={img} alt={name} width={360} height={325} />
-      <div className="pt-6 pb-4 px-[30px]">
+      <Link href={`/course/${item.id}`} key={item.id}>
+        <Image src={img} alt={name} width={360} height={325} />
+      </Link>
+      <div className="pt-6 pb-4 px-[30px] text-black">
         <h3 className="text-lg font-normal mb-5">{name}</h3>
         <div className="flex flex-wrap mb-5">
           <div className="flex gap-2 p-2.5">
@@ -46,6 +53,7 @@ const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => 
             <p className="text-min">Сложность</p>
           </div>
         </div>
+<<<<<<< HEAD
         <div className="mb-10">
           <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
         </div>
@@ -55,6 +63,26 @@ const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => 
         
           Продолжить
         </Link>
+=======
+        {showProgressAndButton && (
+          <>
+                  <div className="mb-10">
+          <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
+        </div>
+        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
+        
+          Продолжить
+        </Link>
+          </>
+        )}
+        {/* <div className="mb-10">
+          <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
+        </div>
+        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
+
+          Продолжить
+        </Link> */}
+>>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
       </div>
     </div>
   );
