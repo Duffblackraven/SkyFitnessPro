@@ -1,7 +1,7 @@
 import { transormData } from "@/helpers/transformData"
 
 
-const API_URL = 'https://skyfitnesspro-4eb46-default-rtdb.europe-west1.firebasedatabase.app/'
+const API_URL = 'https://skyfitnesspro-4eb46-default-rtdb.europe-west1.firebasedatabase.app'
 
 //получение всех курсов на главной странице 
 
@@ -12,7 +12,8 @@ export async function getCourses() {
             throw new Error('Заглушечка-хуеюшечка')
         }
         const data = await response.json()
-      return data
+        console.log(data, "результат внутри апи")
+        return transormData(data)
     } catch (error) {
         throw error
     }
@@ -33,10 +34,13 @@ export async function getWorkouts() {
 }
 //функция получить курс по айди
 export async function getCourseById({ id }) {
+    console.log(id, "отличчали между собой")
     try {
         const response = await fetch(`${API_URL}/courses/${id}.json`)
+        console.log(response)
         if (!response.ok) {
-            throw new Error('Заглушечка-хуеюшечка')
+
+            throw new Error(response.statusText)
         }
         const data = await response.json()
         return data
@@ -111,12 +115,12 @@ export async function addCourse({ courseId, userId }) {
 
 
 export async function getUserCourses({ userId }) {
-    if(!userId){
+    if (!userId) {
         throw new Error("Нет")
     }
     try {
         console.log(userId)
-        const response = await fetch(`${API_URL}users/${userId}.json`);
+        const response = await fetch(`${API_URL}/users/${userId}.json`);
         if (!response.ok) {
             throw new Error("Не получилось загрузить курсы");
         }
@@ -127,5 +131,46 @@ export async function getUserCourses({ userId }) {
     }
     catch (error) {
         throw error
+    }
+}
+
+export async function getCourseWorkouts({ id }) {
+    console.log(id)
+    try {
+        const { workouts } = await getCourseById({ id })
+        // console.log(response)
+        // if (!response.ok) {
+
+        //     throw new Error(response.statusText)
+        // }
+
+
+        const workoutData = await Promise.all(workouts.map((workout) => getWorkoutById({ id: workout })))
+        const workoutList = workouts.reduce((acc, workout, index) => {
+
+
+            return [...acc, { id: workout, name: workoutData[index].name, done: Math.random() > 0.5 }]
+        }, [])
+        return workoutList
+    } catch (error) {
+        throw error
+    }
+}
+
+
+export const  getUserProgress = async ({uId, courseId, workoutId}) => {
+    console.log(uId, courseId, workoutId)
+    try {
+        const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`)
+        console.log(response)
+        // if (!response.ok) {
+        //     throw new Error("Заглушечка-хуюшечка");
+        // }
+        
+        return await response.json()
+
+    } catch (error) {
+        console.log(error)
+        throw new Error(error.message)
     }
 }

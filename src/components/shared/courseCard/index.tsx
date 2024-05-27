@@ -12,11 +12,7 @@ type CardProp = {
   showProgressAndButton?: boolean;
 };
 
-<<<<<<< HEAD
-const CourseCard = ({ name, time, duration, progress, img, item }: CardProp) => {
-=======
 const CourseCard = ({ name, time, duration, progress, img, item, showProgressAndButton = false}: CardProp) => {
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
   return (
     <div className="bg-white rounded relative shadow-base">
       <button
@@ -28,7 +24,7 @@ const CourseCard = ({ name, time, duration, progress, img, item, showProgressAnd
           <use xlinkHref="/sprite.svg#icon-delete" />
         </svg>
       </button>
-      <Link href={`/course/${item.id}`} key={item.id}>
+      <Link href={`/course/${item._id}`} key={item._id}>
         <Image src={img} alt={name} width={360} height={325} />
       </Link>
       <div className="pt-6 pb-4 px-[30px] text-black">
@@ -53,23 +49,12 @@ const CourseCard = ({ name, time, duration, progress, img, item, showProgressAnd
             <p className="text-min">Сложность</p>
           </div>
         </div>
-<<<<<<< HEAD
-        <div className="mb-10">
-          <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
-        </div>
-        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
-          
-          
-        
-          Продолжить
-        </Link>
-=======
         {showProgressAndButton && (
           <>
                   <div className="mb-10">
           <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
         </div>
-        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
+        <Link href={`/workouts/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
         
           Продолжить
         </Link>
@@ -82,7 +67,6 @@ const CourseCard = ({ name, time, duration, progress, img, item, showProgressAnd
 
           Продолжить
         </Link> */}
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
       </div>
     </div>
   );

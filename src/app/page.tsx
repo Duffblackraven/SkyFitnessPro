@@ -1,32 +1,20 @@
 import { getCourses } from "@/api/api";
-<<<<<<< HEAD
-import CourseCard from "@/components/shared/courseCard";
-import { mapCourses } from "@/helpers/mapCourses";
-import { courseData } from "@/lib/courseData";
-=======
 import Header from "@/components/header";
 import CourseCard from "@/components/shared/courseCard";
 import ScrollToTopButton from "@/components/shared/scrollToTopButton";
 import { mapCourses } from "@/helpers/mapCourses";
 import { courseData } from "@/lib/courseData";
 import Image from "next/image";
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
 import Link from "next/link";
 
 
 export default async function Home() {
-<<<<<<< HEAD
-  const data = await getCourses()
-  console.log(data)
-  const courses = await mapCourses(data)
-=======
-  const data = await getCourses();
-  console.log("Количество курсов:", data.length);
-  console.log("Описание курсов:", data);
+  const courses = await getCourses();
+  console.log("Количество курсов:", courses.length);
+  console.log("Описание курсов:", courses);
   
-  const courses = await mapCourses(data);
-  // const courses = await mapCourses(data)
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
+  
+  
   return (
     <>
       <Header />
@@ -50,33 +38,12 @@ export default async function Home() {
           <div className="grid grid-cols-card gap-10">
           {courses.map((item) =>
 
-<<<<<<< HEAD
-      {courses.map((item) =>
-
-
-
-
-        <CourseCard item={item} key={item.id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item.id].smImg} />
-
-
-
-=======
-            <CourseCard item={item} key={item.id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item.id].smImg} />
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
+            <CourseCard item={item} key={item._id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item._id].smImg} />
 
           )}
           </div>
         </section>
 
-<<<<<<< HEAD
-      )}
-
-
-    </main >
-
-  );
-}
-=======
       </main >
       <footer className="mt-10 mb-10 text-center text">
       <ScrollToTopButton />
@@ -117,5 +84,4 @@ export default async function Home() {
 
 //   );
 // }
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
 

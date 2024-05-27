@@ -10,11 +10,7 @@ const UserDropDown = () => {
       </div>
       <div className="grid gap-2.5">
         <Link href="/profile"
-<<<<<<< HEAD
-          className="text-sm w-full rounded-full bg-bright-green py-4 px-[26px]"
-=======
           className="text-sm w-full rounded-full bg-bright-green py-4 px-[26px] text-black"
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
 
         >
           Мой профиль

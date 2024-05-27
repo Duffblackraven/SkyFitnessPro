@@ -9,6 +9,7 @@ import { transormData } from "@/helpers/transformData";
 import { courseData } from "@/lib/courseData";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const ProfilePage = async () => {
@@ -17,11 +18,6 @@ const ProfilePage = async () => {
   const data = await getUserCourses({ userId })
 
 
-<<<<<<< HEAD
-  
-
-=======
->>>>>>> 95ec70581bdd3d200d42d2f4dc566393f83301ca
   const courses = await mapCourses(data)
   return (
     <>
@@ -43,11 +39,13 @@ const ProfilePage = async () => {
         <section>
           <SecondaryHeading>Мои курсы</SecondaryHeading>
           <div className="grid grid-cols-card gap-10 ">
-            {courses.map((item) =>
-              <CourseCard item={item} key={item.id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item.id].smImg} />
-
+            {courses.map((item) =>(
+              
+              <CourseCard showProgressAndButton={true} item={item} key={item.id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item.id].smImg} />
+            )
 
             )}
+            
           </div>
         </section>
       </main>

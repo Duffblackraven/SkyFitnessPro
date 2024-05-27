@@ -1,10 +1,10 @@
 import React from 'react'
 import ProgressBar from '../shared/progressBar'
 
-const ExerciseBlock = () => {
+const ExerciseBlock = ({title, name}) => {
   return (
     <div >
-      <ProgressBar name={"exerciseName"} min={0} max={100} value={40} id={"exerciseId"} title={"Наклоны вперед 0%"}/>
+      <ProgressBar name={"exerciseName"} min={0} max={100} value={40} id={"exerciseId"} title={title}/>
     </div>
   )
 }
