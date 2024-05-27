@@ -14,16 +14,26 @@ const Header = () => {
       <div className="flex justify-between">
         <Logo />
         {/* <button type="button" className="text-sm bg-bright-green py-4 px-[26px] rounded-full">Войти</button> */}
-        <div className="flex items-center relative cursor-pointer" onClick={handleOpen}>
-          <Image src="/img/icon-header.svg" alt="Логотип" width={42} height={42} />
+        <div
+          className="flex items-center relative cursor-pointer"
+          onClick={handleOpen}
+        >
+          <Image
+            src="/img/icon-header.svg"
+            alt="Логотип"
+            width={42}
+            height={42}
+          />
           <p className="ml-5 mr-3 text-black">Сергей</p>
           <svg className="w-[8px] h-[8px]">
-              <use xlinkHref="/img/sprite.svg#icon-arrow" />
+            <use xlinkHref="/img/sprite.svg#icon-arrow" />
           </svg>
           {isOpen && <UserDropDown />}
         </div>
       </div>
-      <p className="xl:text-sm xl:opacity-50 text-black">Онлайн-тренировки для занятий дома</p>
+      <p className="xl:text-sm xl:opacity-50 text-black">
+        Онлайн-тренировки для занятий дома
+      </p>
     </header>
   );
 };

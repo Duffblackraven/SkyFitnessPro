@@ -6,6 +6,7 @@ import SecondaryHeading from "@/components/shared/secondaryHeading";
 import { auth } from "@/firebase/firebase";
 import { mapCourses } from "@/helpers/mapCourses";
 import { transormData } from "@/helpers/transformData";
+import WithAuth from "@/hoc/WithAuth";
 import { courseData } from "@/lib/courseData";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -13,12 +14,11 @@ import Link from "next/link";
 import React from "react";
 
 const ProfilePage = async () => {
-  const userId = cookies().get("uid")?.value
+  const userId = cookies().get("uid")?.value;
 
-  const data = await getUserCourses({ userId })
+  const data = await getUserCourses({ userId });
 
-
-  const courses = await mapCourses(data)
+  const courses = await mapCourses(data);
   return (
     <>
       <Header />
@@ -28,7 +28,7 @@ const ProfilePage = async () => {
           <div className="flex shadow-base p-[30px] rounded">
             <Image
               className="mr-8"
-              src="/profile.png"
+              src="/img/profile.png"
               alt=""
               width={197}
               height={197}
@@ -39,17 +39,22 @@ const ProfilePage = async () => {
         <section>
           <SecondaryHeading>Мои курсы</SecondaryHeading>
           <div className="grid grid-cols-card gap-10 ">
-            {courses.map((item) =>(
-              
-              <CourseCard showProgressAndButton={true} item={item} key={item.id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item.id].smImg} />
-            )
-
-            )}
-            
+            {courses.map((item) => (
+              <CourseCard
+                showProgressAndButton={true}
+                item={item}
+                key={item.id}
+                name={item.name}
+                time={item.time}
+                duration={item.duration}
+                progress={item.progress}
+                img={courseData[item.id].smImg}
+              />
+            ))}
           </div>
         </section>
       </main>
     </>
   );
 };
-export default ProfilePage;
+export default WithAuth(ProfilePage);
