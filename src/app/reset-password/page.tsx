@@ -33,7 +33,7 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <section className="shadow-base rounded flex flex-col items-center p-[30px] w-[360px] m-auto ">
+    <section className="shadow-base rounded flex flex-col items-center p-[30px] w-[360px] m-auto text-black">
       <Logo />
       <div className="mt-12 mb-[34px] grid gap-y-2.5 w-full">
         <form action={handleResetPassword}>

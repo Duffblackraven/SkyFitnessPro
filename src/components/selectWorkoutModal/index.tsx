@@ -1,8 +1,21 @@
 import React from 'react'
+import HeadingFour from '../shared/headingFour'
+import { getCourseWorkouts } from '@/api/api'
+import Link from 'next/link'
 
-const SelectWorkoutModal = () => {
+const SelectWorkoutModal = async ({ id }) => {
+  const workoutList = await getCourseWorkouts({ id })
   return (
-    <div>Модалка с выбором тренировки</div>
+    <div className="bg-white rounded relative shadow-base">
+      <HeadingFour>Выберите тренировку</HeadingFour>
+
+      {workoutList.map((elem) =>
+        <Link href={`/workout-page/${id}/${elem.id}`}>
+          <div>
+            {elem.name}
+          </div>
+        </Link>)}
+    </div>
   )
 }
 
