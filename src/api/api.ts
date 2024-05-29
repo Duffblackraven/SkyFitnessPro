@@ -135,11 +135,7 @@ export async function getCourseWorkouts({ id }) {
   console.log(id);
   try {
     const { workouts } = await getCourseById({ id });
-    // console.log(response)
-    // if (!response.ok) {
-
-    //     throw new Error(response.statusText)
-    // }
+  
 
     const workoutData = await Promise.all(
       workouts.map((workout) => getWorkoutById({ id: workout }))
@@ -172,6 +168,24 @@ export const getUserProgress = async ({ uId, courseId, workoutId }) => {
     return await response.json();
   } catch (error) {
     console.log(error);
-    throw new Error(error.message);
+    throw error
   }
 };
+
+
+export const updateUserProgress = async({uId, courseId, workoutId, progress}) => {
+  try {
+    const response = await fetch( `${API_URL}/users/${uId}/${courseId}/${workoutId}.json`,
+      {method: "PUT",
+        body: JSON.stringify(progress)
+      }
+    )
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return await response.json();
+  } catch (error) {
+
+    throw error
+  }
+}

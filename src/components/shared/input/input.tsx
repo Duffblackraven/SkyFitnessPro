@@ -7,9 +7,9 @@ type InputProps = {
   name: string,
 }
 
-const Input = ({ placeholder, type, onChange, name }:InputProps) => {
+const Input = ({ placeholder, type, onChange, name, value }:InputProps) => {
   return (
-    <input className='rounded-lg border text-sm w-full py-4 px-[18px]' type={type} name={name} placeholder={placeholder} onChange={onChange} />
+    <input value={value} className='rounded-lg border text-sm w-full py-4 px-[18px]' type={type} name={name} placeholder={placeholder} onChange={onChange} />
   )
 }
 // Принимает плейсхолдер, тип, ончейндж, вэлью, нейм.
