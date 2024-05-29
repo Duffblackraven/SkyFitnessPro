@@ -46,12 +46,12 @@ const ProfilePage = async () => {
               <CourseCard
                 showProgressAndButton={true}
                 item={item}
-                key={item.id}
+                key={item._id}
                 name={item.name}
                 time={item.time}
                 duration={item.duration}
                 progress={item.progress}
-                img={courseData[item.id].smImg}
+                img={courseData[item._id].smImg}
               />
             ))}
           </div>

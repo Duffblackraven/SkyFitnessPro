@@ -70,8 +70,8 @@ const CourseCard = ({
               />
             </div>
             <Link
-              href={`/workouts/${item.id}`}
-              key={item.id}
+              href={`/workouts/${item._id}`}
+              key={item._id}
               className="block text-center w-full bg-bright-green py-4 px-[26px] rounded text-sm hover:bg-bright-green-hov active:bg-black active:text-white"
             >
               Продолжить

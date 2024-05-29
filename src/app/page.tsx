@@ -38,7 +38,7 @@ export default async function Home() {
           <div className="grid grid-cols-card gap-10">
           {courses.map((item) =>
 
-            <CourseCard item={item} key={item._id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item._id].smImg} />
+            <CourseCard item={item} key={item._id} name={item.nameRU} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item._id].smImg} />
 
           )}
           </div>

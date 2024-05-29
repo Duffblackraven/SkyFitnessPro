@@ -9,7 +9,7 @@ const InfoBlock = ({ courseId }) => {
   const onClick = async () => {
     "use server";
     try {
-      const userId = cookies().get("uid")?.name;
+      const userId = cookies().get("uid")?.value;
       const data = await addCourse({
         courseId,
         userId,
