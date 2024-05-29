@@ -4,6 +4,7 @@ import CourseCard from "@/components/shared/courseCard";
 import ScrollToTopButton from "@/components/shared/scrollToTopButton";
 import { mapCourses } from "@/helpers/mapCourses";
 import { courseData } from "@/lib/courseData";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,12 +13,11 @@ export default async function Home() {
   const courses = await getCourses();
   console.log("Количество курсов:", courses.length);
   console.log("Описание курсов:", courses);
-  
-  
+  const userName = cookies().get("email")?.value;
   
   return (
     <>
-      <Header />
+      <Header userName={userName}/>
 
       <main className="flex min-h-screen flex-col items-center justify-between grid gap-[15px] mt-[50px] mb-[69px] pl-left pr-right">
         <section className="mb-[60px]">
@@ -28,7 +28,7 @@ export default async function Home() {
             <Image
               className=""
               src="/img/green_message.png"
-              alt=""
+              alt="green_message"
               width={300}
               height={120}
             />

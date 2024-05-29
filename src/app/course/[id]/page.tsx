@@ -6,15 +6,17 @@ import InfoBlock from "@/components/infoBlock";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
 import SkillCard from "@/components/skillCard";
 import { courseData } from "@/lib/courseData";
+import { cookies } from "next/headers";
 
 import React from "react";
 
 const CoursePage = async ({ params }) => {
   const course = await getCourseById({ id: params.id })
+  const userName = cookies().get("email")?.value;
   console.log(course)
   return (
     <main className="pl-left pr-right">
-      <Header />
+      <Header userName={userName}/>
       <section className="mb-[60px]">
         <SkillCard src={courseData[course._id].img} alt={`Картинка для курса ${course.nameRU}`} />
         <SecondaryHeading>Подойдет для вас, если:</SecondaryHeading>
