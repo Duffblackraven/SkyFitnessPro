@@ -34,7 +34,7 @@ const ProgressBar = ({
       <div className="rounded-md w-[300px] overflow-hidden h-2 bg-[#F7F7F7]">
         <div
           style={{ width: progress + "px" }}
-          className="bg-cyan-500 h-full"
+          className="bg-cyan-500 h-full rounded"
         ></div>
       </div>
     </>

@@ -3,13 +3,12 @@ import React from 'react'
 type InputProps = {
   placeholder: string,
   type: string,
-  onChange: (e:any)=>void,
   name: string,
 }
 
-const Input = ({ placeholder, type, onChange, name, value }:InputProps) => {
+const Input = ({ placeholder, type, name }:InputProps) => {
   return (
-    <input value={value} className='rounded-lg border text-sm w-full py-4 px-[18px]' type={type} name={name} placeholder={placeholder} onChange={onChange} />
+    <input className='rounded-lg border text-sm w-full py-4 px-[18px]' type={type} name={name} placeholder={placeholder}  />
   )
 }
 // Принимает плейсхолдер, тип, ончейндж, вэлью, нейм.
