@@ -2,6 +2,10 @@ import Image from "next/image";
 import React from "react";
 import ProgressBar from "../progressBar";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { addCourse, getUserCourses } from "@/api/api";
+import { mapCourses } from "@/helpers/mapCourses";
+import { redirect } from "next/navigation";
 
 type CardProp = {
   name: string;
@@ -10,6 +14,7 @@ type CardProp = {
   progress: number;
   img: string;
   showProgressAndButton?: boolean;
+  isAdded: boolean;
 };
 
 const CourseCard = ({
@@ -18,20 +23,54 @@ const CourseCard = ({
   duration,
   progress,
   img,
+  idCourse,
   item,
   showProgressAndButton = false,
+  isAdded,
 }: CardProp) => {
+  const userId = cookies().get("uid")?.value;
+  const handleAddCourse = async () => {
+    "use server";
+    try {
+      const userId = cookies().get("uid")?.value;
+      const courseId = idCourse;
+      const data = await addCourse({
+        courseId,
+        userId,
+      });
+    } catch (error) {
+      if (error.message === "not authorized") redirect("/signin");
+    }
+    redirect("/profile");
+  };
+  const handleDeleteCourse = async () => {
+    "use server";
+  };
   return (
     <div className="bg-white rounded relative shadow-base">
-      <button
-        type="button"
-        data-tooltip="Удалить курс"
-        className="absolute top-5 right-5 after:content-[attr(data-tooltip)] after:opacity-0 after:transition-opacity after:absolute after:bg-white after:text-min after:p-1.5 after:w-[100px] hover:after:opacity-100"
-      >
-        <svg className="w-[27px] h-[27px]">
-          <use xlinkHref="/img/sprite.svg#icon-add" />
-        </svg>
-      </button>
+      {userId && isAdded ? (
+        <form action={handleDeleteCourse} className="absolute right-3 top-3">
+          <button
+            type="submit"
+            data-tooltip="Удалить курс"
+            className="after:content-[attr(data-tooltip)] after:opacity-0 after:transition-opacity after:rounded-md after:border after:border-black after:text-nowrap after:z-10 after:absolute after:top-10 after:left-6 after:bg-white after:text-[14px] after:p-1.5  hover:after:opacity-100"
+          >
+            <svg className="w-[32px] h-[32px]">
+              <use xlinkHref="/img/sprite.svg#icon-delete" />
+            </svg>
+          </button>
+        </form>
+      ) : (
+        <form action={handleAddCourse} className="absolute right-3 top-3">
+          <button type="submit" data-tooltip="Добавить курс"
+            className="after:content-[attr(data-tooltip)] after:opacity-0 after:transition-opacity after:rounded-md after:border after:border-black after:text-nowrap after:z-10 after:absolute after:top-10 after:left-6 after:bg-white after:text-[14px] after:p-1.5 hover:after:opacity-100"
+            >
+            <svg className="w-[32px] h-[32px]">
+              <use xlinkHref="/img/sprite.svg#icon-add" />
+            </svg>
+          </button>
+        </form>
+      )}
       <Link href={`/course/${item._id}`} key={item._id}>
         <Image src={img} alt={name} width={360} height={325} />
       </Link>

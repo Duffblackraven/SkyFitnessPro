@@ -1,4 +1,4 @@
-import { getCourses } from "@/api/api";
+import { getCourses, getUserCourses } from "@/api/api";
 import Header from "@/components/header";
 import CourseCard from "@/components/shared/courseCard";
 import ScrollToTopButton from "@/components/shared/scrollToTopButton";
@@ -8,16 +8,21 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
-
 export default async function Home() {
   const courses = await getCourses();
-  console.log("Количество курсов:", courses.length);
-  console.log("Описание курсов:", courses);
+  // console.log("Количество курсов:", courses.length);
+  // console.log("Описание курсов:", courses);
   const userName = cookies().get("email")?.value;
+// __________________________________________________
+  const userId = cookies().get("uid")?.value;
+  const data = await getUserCourses({ userId });
   
+  const coursesUser = await mapCourses(data);
+  let coursesUserId = [];
+  coursesUser.map((item)=>coursesUserId.push(item._id))
   return (
     <>
-      <Header userName={userName}/>
+      <Header userName={userName} />
 
       <main className="flex min-h-screen flex-col items-center justify-between grid gap-[15px] mt-[50px] mb-[69px] pl-left pr-right">
         <section className="mb-[60px]">
@@ -36,17 +41,24 @@ export default async function Home() {
         </section>
         <section>
           <div className="grid grid-cols-card gap-10">
-          {courses.map((item) =>
-
-            <CourseCard item={item} key={item._id} name={item.nameRU} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item._id].smImg} />
-
-          )}
+            {courses.map((item) => (
+                <CourseCard
+                item={item}
+                idCourse = {item._id}
+                key={item._id}
+                name={item.nameRU}
+                time={item.time}
+                duration={item.duration}
+                progress={item.progress}
+                img={courseData[item._id].smImg}
+                isAdded = {userId && coursesUserId.includes(item._id)? true : false}
+              />
+            ))}
           </div>
         </section>
-
-      </main >
+      </main>
       <footer className="mt-10 mb-10 text-center text">
-      <ScrollToTopButton />
+        <ScrollToTopButton />
       </footer>
     </>
   );
@@ -56,7 +68,6 @@ export default async function Home() {
 // import { mapCourses } from "@/helpers/mapCourses";
 // import { courseData } from "@/lib/courseData";
 // import Link from "next/link";
-
 
 // export default async function Home() {
 //   const data = await getCourses()
@@ -68,20 +79,11 @@ export default async function Home() {
 
 //       {courses.map((item) =>
 
-
-
-
 //         <CourseCard item={item} key={item.id} name={item.name} time={item.time} duration={item.duration} progress={item.progress} img={courseData[item.id].smImg} />
 
-
-
-
-
 //       )}
-
 
 //     </main >
 
 //   );
 // }
-
