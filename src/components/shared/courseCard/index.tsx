@@ -31,17 +31,22 @@ const CourseCard = ({
   const userId = cookies().get("uid")?.value;
   const handleAddCourse = async () => {
     "use server";
-    try {
-      const userId = cookies().get("uid")?.value;
-      const courseId = idCourse;
-      const data = await addCourse({
-        courseId,
-        userId,
-      });
-    } catch (error) {
-      if (error.message === "not authorized") redirect("/signin");
+    if (userId) {
+      try {
+        const userId = cookies().get("uid")?.value;
+        const courseId = idCourse;
+        const data = await addCourse({
+          courseId,
+          userId,
+        });
+      } catch (error) {
+        if (error.message === "not authorized") redirect("/signin");
+      }
+      redirect("/profile");
+    } else {
+      throw new Error("Для добавления курса необходимо авторизоваться");
     }
-    redirect("/profile");
+
   };
   const handleDeleteCourse = async () => {
     "use server";

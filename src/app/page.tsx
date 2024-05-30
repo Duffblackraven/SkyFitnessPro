@@ -15,11 +15,13 @@ export default async function Home() {
   const userName = cookies().get("email")?.value;
 // __________________________________________________
   const userId = cookies().get("uid")?.value;
-  const data = await getUserCourses({ userId });
-  
-  const coursesUser = await mapCourses(data);
   let coursesUserId = [];
-  coursesUser.map((item)=>coursesUserId.push(item._id))
+  if (userId) {
+    const data = await getUserCourses({ userId });
+    const coursesUser = await mapCourses(data);
+    coursesUser.map((item)=>coursesUserId.push(item._id))
+  }
+
   return (
     <>
       <Header userName={userName} />
@@ -51,7 +53,7 @@ export default async function Home() {
                 duration={item.duration}
                 progress={item.progress}
                 img={courseData[item._id].smImg}
-                isAdded = {userId && coursesUserId.includes(item._id)? true : false}
+                isAdded = {userId && coursesUserId.includes(item._id) ? true : false}
               />
             ))}
           </div>
