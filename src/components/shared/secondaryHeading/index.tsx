@@ -2,7 +2,7 @@ import React from 'react'
 
 const SecondaryHeading = ({children}) => {
   return (
-    <h3 className="text-base font-semibold mb-6 text-black">{children}</h3>
+    <h3 className="text-[40px] font-semibold mt-20 mb-10 text-black">{children}</h3>
   )
 }
 // text-xl

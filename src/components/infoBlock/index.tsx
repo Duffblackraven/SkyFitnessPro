@@ -22,7 +22,7 @@ const InfoBlock = ({ courseId }) => {
   return (
     <div>
       <form action={onClick}>
-        <Button type="submit">Добавить курс</Button>
+        <Button type="submit" green={true}>Добавить курс</Button>
       </form>
     </div>
   );

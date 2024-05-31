@@ -72,7 +72,7 @@ const WorkoutPage = async ({ params }) => {
         <PrimaryHeading>{workout.name}</PrimaryHeading>
         <WorkoutBreadCrumbs />
         <WorkoutVideo video={workout.video} />
-        <div className="p-10 rounded shadow-base">
+        <div className="p-10 rounded shadow-base text-black">
           <HeadingFour>Упражнения тренировки:</HeadingFour>
           <div className="grid grid-cols-3 justify-between gap-5 mt-5">
             {workout.exercises
@@ -88,7 +88,7 @@ const WorkoutPage = async ({ params }) => {
               ))
               : "Упражнений нет"}
           </div>
-          <div className="w-[320px] mt-10">
+          <div className="w-[320px] mt-10 text-black">
             {workout.exercises ? <Link href={`/workout-page/${params.id[0]}/${params.id[1]}/progress`}>
               Заполнить свой прогресс</Link> : 
               <form action={updateProgress}>
