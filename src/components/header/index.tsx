@@ -11,7 +11,7 @@ const Header = ({userName}) => {
     setIsOpen((prev) => !prev);
   };
   return (
-    <header className="grid px-4 mt-10 sm:px-8 md:gap-[15px] md:px-14 xl:pl-left xl:pr-right">
+    <header className="grid px-4 mt-10 mb-20 sm:px-8 md:gap-[15px] md:px-14 xl:pl-left xl:pr-right">
       <div className="flex justify-between">
         <Logo />
         {userName === undefined ? <Link href="/signin" className="text-sm bg-bright-green py-4 px-[26px] rounded-full cursor-pointer">Войти</Link> : (
