@@ -69,10 +69,13 @@ const SignUpPage = () => {
           />
 
           <div className="flex flex-col gap-2.5 w-full text-black">
-            <Button type={"submit"} green={false}>
-              Зарегистрироваться
+          <Button type={"submit"} green={true}>
+          Зарегистрироваться
             </Button>
-            <Link href="/signin" >
+            <Link
+              className="w-full text-center text-sm border py-4 px-[26px] rounded border-black hover:bg-light-grey active:bg-dark-grey"
+              href="/signin"
+            >
               Войти
             </Link>
           </div>
