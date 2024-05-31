@@ -78,13 +78,6 @@ const CourseCard = ({
             </Link>
           </>
         )}
-        {/* <div className="mb-10">
-          <ProgressBar name={"progressCard"} id={"progressCard"} min={0} max={100} value={progress} title={`Прогресс ${progress}%`} />
-        </div>
-        <Link href={`/course/${item.id}`} key={item.id} className="w-full bg-bright-green py-4 px-[26px] rounded text-sm">
-
-          Продолжить
-        </Link> */}
       </div>
     </div>
   );
