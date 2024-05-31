@@ -25,6 +25,7 @@ const UserDropDown = ({ userName, logoutUser }) => {
         >
           Мой профиль
         </Link>
+        <Link href="/signin">
         <button
         onClick={logoutUser}
           type="submit"
@@ -32,6 +33,7 @@ const UserDropDown = ({ userName, logoutUser }) => {
         >
           Выйти
         </button>
+        </Link>
       </div>
     </div>
   );
