@@ -11,15 +11,13 @@ import WithAuth from "@/hoc/WithAuth";
 import { courseData } from "@/lib/courseData";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const ProfilePage = async () => {
   const userId = cookies().get("uid")?.value;
-
   const data = await getUserCourses({ userId });
   const userName = cookies().get("email")?.value;
-
+  
   const courses = await mapCourses(data);
   return (
     <>
@@ -46,12 +44,14 @@ const ProfilePage = async () => {
               <CourseCard
                 showProgressAndButton={true}
                 item={item}
+                idCourse = {item._id}
                 key={item._id}
                 name={item.name}
                 time={item.time}
                 duration={item.duration}
                 progress={item.progress}
                 img={courseData[item._id].smImg}
+                isAdded = {true}
               />
             ))}
           </div>
