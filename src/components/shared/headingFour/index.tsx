@@ -2,7 +2,7 @@ import React from 'react'
 
 const HeadingFour = ({children}) => {
   return (
-    <h4 className="text-lg text-black">{children}</h4>
+    <h4 className="text-base font-normal text-black">{children}</h4>
   )
 }
 //в карточке курса, в профиле где имя пользователя(на макете Сергей)

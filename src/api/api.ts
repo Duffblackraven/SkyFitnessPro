@@ -1,4 +1,5 @@
 import { transormData } from "@/helpers/transformData";
+import { cookies } from "next/headers";
 
 const API_URL =
   "https://skyfitnesspro-4eb46-default-rtdb.europe-west1.firebasedatabase.app";
@@ -62,6 +63,19 @@ export async function getWorkoutById({ id }) {
   }
 }
 
+export async function getUserWorkoutById({ uId, workoutId, courseId }) {
+  try {
+    const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`);
+    if (!response.ok) {
+      throw new Error("Заглушечка-хуеюшечка");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function addCourse({ courseId, userId }) {
   if (!userId) {
     throw new Error("not authorized");
@@ -77,22 +91,24 @@ export async function addCourse({ courseId, userId }) {
     const progressObj = workouts.reduce((acc, workoutId, index) => {
       const exercises = workoutsData[index].exercises;
       if (!exercises) {
-        acc[workoutId] = { noProgress: true };
+        acc[workoutId] = { done: false };
       } else {
         acc[workoutId] = exercises.reduce(
           (exerciseAcc, exercise, exerciseIndex) => {
-            exerciseAcc[exerciseIndex] = {
+            exerciseAcc.exercises[exerciseIndex] = {
               name: exercise.name,
               quantity: exercise.quantity,
               progress: 0,
             };
             return exerciseAcc;
           },
-          {}
+          {done:false,
+            exercises: {},
+          }
         );
       }
       return acc;
-    }, {});
+    }, {progress: 0});
 
     const response = await fetch(
       `${API_URL}/users/${userId}/${courseId}.json`,
@@ -135,13 +151,11 @@ export async function getCourseWorkouts({ id }) {
   console.log(id);
   try {
     const { workouts } = await getCourseById({ id });
-    // console.log(response)
-    // if (!response.ok) {
-
-    //     throw new Error(response.statusText)
-    // }
 
     const workoutData = await Promise.all(
+      workouts.map((workout) => getUserWorkoutById({ workoutId: workout, uId: cookies().get("uid")?.value, courseId: id }))
+    ); console.log(workoutData, "typaya zalupa blyta hyli ti ne rabotaesh to blyat a")
+    const workoutNames = await Promise.all(
       workouts.map((workout) => getWorkoutById({ id: workout }))
     );
     const workoutList = workouts.reduce((acc, workout, index) => {
@@ -149,8 +163,8 @@ export async function getCourseWorkouts({ id }) {
         ...acc,
         {
           id: workout,
-          name: workoutData[index].name,
-          done: Math.random() > 0.5,
+          name: workoutNames[index]?.name,
+          done: workoutData[index]?.done
         },
       ];
     }, []);
@@ -164,7 +178,10 @@ export const getUserProgress = async ({ uId, courseId, workoutId }) => {
   console.log(uId, courseId, workoutId);
   try {
     const response = await fetch(
-      `${API_URL}/users/${uId}/${courseId}/${workoutId}.json`
+      `${API_URL}/users/${uId}/${courseId}/${workoutId}.json`,
+      {next: {
+        tags: ["progress"]
+      }}
     );
     if (!response.ok) {
       throw new Error("Заглушечка-хуюшечка");
@@ -172,6 +189,48 @@ export const getUserProgress = async ({ uId, courseId, workoutId }) => {
     return await response.json();
   } catch (error) {
     console.log(error);
-    throw new Error(error.message);
+    throw error
   }
 };
+
+
+export const updateUserProgress = async ({ uId, courseId, workoutId, progress }) => {
+  try {
+    const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(progress)
+      }
+    )
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    await updateCourseProgress({courseId, uId})
+    return await response.json();
+  } catch (error) {
+
+    throw error
+  }
+}
+
+
+export const updateCourseProgress = async ({ courseId, uId }) => {
+  try {
+    const data = await getCourseWorkouts({ id: courseId })
+    console.log(data, "залупа номер одиен")
+    const progress = data.reduce((acc, elem) => elem.done ? acc + 1 : acc, 0) / data.length * 100
+    console.log(progress, "ЗАЛУПА ЕБАНАЯ")
+    const response = await fetch(`${API_URL}/users/${uId}/${courseId}/progress.json`,
+      {
+        method: "PUT",
+        body: JSON.stringify(progress)
+      }
+    )
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return await response.json();
+  } catch (error) {
+    throw error
+  }
+}

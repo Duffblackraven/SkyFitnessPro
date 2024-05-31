@@ -6,15 +6,18 @@ import InfoBlock from "@/components/infoBlock";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
 import SkillCard from "@/components/skillCard";
 import { courseData } from "@/lib/courseData";
+import { cookies } from "next/headers";
+import Image from "next/image";
 
 import React from "react";
 
 const CoursePage = async ({ params }) => {
   const course = await getCourseById({ id: params.id })
+  const userName = cookies().get("email")?.value;
   console.log(course)
   return (
     <main className="pl-left pr-right">
-      <Header />
+      <Header userName={userName} />
       <section className="mb-[60px]">
         <SkillCard src={courseData[course._id].img} alt={`Картинка для курса ${course.nameRU}`} />
         <SecondaryHeading>Подойдет для вас, если:</SecondaryHeading>
@@ -31,8 +34,29 @@ const CoursePage = async ({ params }) => {
             (item, index) => <AreaBlock key={index} text={item} />
           )}
         </div>
+        <div className="p-10 flex justify-between items-end bg-white rounded relative shadow-base h-[500px] mt-[100px]">
+            <section className="w-[400px] flex flex-col items-center gap-8">
+              <h3 className="text-[50px] text-base font-semibold text-black">Начните путь к новому телу</h3>
+              <h3 className="text-[20px] text-gray-400">
+                • проработка всех групп мышц <br />
+                • тренировка суставов <br />
+                • улучшение циркуляции крови <br />
+                • упражнения заряжают бодростью <br />
+                • помогают противостоять стрессам</h3>
 
-        <InfoBlock courseId={course._id}/>
+              <section className="w-[400px]"><InfoBlock courseId={course._id} /></section>
+            </section>
+            <section className="absolute left-[500px] bottom-0">
+              <Image
+                className=""
+                src="/img/runner.png"
+                alt="runner"
+                width={700}
+                height={700}
+              />
+            </section>
+        </div>
+
       </section>
     </main>
   );

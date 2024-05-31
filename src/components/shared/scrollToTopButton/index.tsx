@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const ScrollToTopButton = ({ green = false }) => {
+const ScrollToTopButton = ({ green = true }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
