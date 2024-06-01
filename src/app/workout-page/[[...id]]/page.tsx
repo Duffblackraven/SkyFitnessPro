@@ -65,9 +65,11 @@ const WorkoutPage = async ({ params }) => {
 
     revalidateTag("progress")
   }
+  const userName = cookies().get("email")?.value;
+
   return (
     <>
-      <Header />
+      <Header userName={userName}/>
       <main className="pl-left pr-right">
         <PrimaryHeading>{workout.name}</PrimaryHeading>
         <WorkoutBreadCrumbs />
