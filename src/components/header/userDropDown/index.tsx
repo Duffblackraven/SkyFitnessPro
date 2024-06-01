@@ -1,18 +1,23 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 
-const UserDropDown = () => {
+const UserDropDown = ({ userName, logoutUser }) => {
+  // const logoutUser = () => {
+  //   // "use server"
+  // console.log(cookies().getAll);
+  //   // cookies().delete("email");
+  //   // cookies().delete("uid");
+  //   // redirect("/signin");
+  // };
   return (
     <div
       onClick={(e) => e.stopPropagation()}
       className="p-[30px] rounded-[30px w-[266px] grid gap-[34px] text-center absolute top-16 right-0 shadow-[0_4px_67px_-12px_rgba(0,0,0,0.13)]  bg-white"
     >
       <div className="grid gap-2.5">
-        <p className="text-sm text-black">Сергей</p>
-        <p className="text-sm text-txt-gr text-black">
-          sergey.petrov96@mail.ru
-        </p>
+        <p className="text-sm text-black">{userName}</p>
       </div>
+      {/* <FormaLogout logoutUser={logoutUser} /> */}
       <div className="grid gap-2.5">
         <Link
           href="/profile"
@@ -20,12 +25,15 @@ const UserDropDown = () => {
         >
           Мой профиль
         </Link>
+        <Link href="/signin">
         <button
+        onClick={logoutUser}
+          type="submit"
           className="text-sm w-full rounded-full border-black border py-4 px-[26px] text-black"
-          type="button"
         >
           Выйти
         </button>
+        </Link>
       </div>
     </div>
   );

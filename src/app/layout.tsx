@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { cookies } from "next/headers";
 
 const inter = Roboto({ subsets: ["cyrillic"], weight: "400", });
 

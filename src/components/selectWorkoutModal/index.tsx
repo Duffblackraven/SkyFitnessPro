@@ -6,11 +6,11 @@ import Link from 'next/link'
 const SelectWorkoutModal = async ({ id }) => {
   const workoutList = await getCourseWorkouts({ id })
   return (
-    <div className="bg-white rounded relative shadow-base">
+    <div className="bg-white rounded relative shadow-base text-black">
       <HeadingFour>Выберите тренировку</HeadingFour>
 
       {workoutList.map((elem) =>
-        <Link href={`/workout-page/${id}/${elem.id}`}>
+        <Link key={id} href={`/workout-page/${id}/${elem.id}`}>
           <div>
             {elem.name}
           </div>
