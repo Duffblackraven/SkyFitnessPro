@@ -10,7 +10,7 @@ const SelectWorkoutModal = async ({ id }) => {
       <HeadingFour>Выберите тренировку</HeadingFour>
 
       {workoutList.map((elem) =>
-        <Link href={`/workout-page/${id}/${elem.id}`}>
+        <Link key={id} href={`/workout-page/${id}/${elem.id}`}>
           <div>
             {elem.name}
           </div>
