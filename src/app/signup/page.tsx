@@ -45,10 +45,10 @@ const SignUpPage = () => {
     }
   };
   return (
-    <section className="shadow-base rounded flex flex-col items-center p-[30px] w-[360px] m-auto text-black">
+    <section className="shadow-base rounded flex flex-col items-center p-[30px] w-[360px] m-auto mt-[15%] text-black">
       <Logo />
       <div className="mt-12 mb-[34px] grid gap-y-2.5 w-full text-black">
-        <form action={handleSignup}>
+        <form className="grid gap-y-2.5" action={handleSignup}>
           <Input
             type={"email"}
             name={"email"}
@@ -68,7 +68,7 @@ const SignUpPage = () => {
 
           />
 
-          <div className="flex flex-col gap-2.5 w-full text-black">
+          <div className="flex  mt-[24px] flex-col gap-2.5 w-full text-black">
           <Button type={"submit"} green={true}>
           Зарегистрироваться
             </Button>
