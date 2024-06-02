@@ -3,8 +3,7 @@ import React from "react";
 import ProgressBar from "../progressBar";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { addCourse, getUserCourses } from "@/api/api";
-import { mapCourses } from "@/helpers/mapCourses";
+import { addCourse, deleteCourse} from "@/api/api";
 import { redirect } from "next/navigation";
 
 type CardProp = {
@@ -50,9 +49,27 @@ const CourseCard = ({
     }
 
   };
+
   const handleDeleteCourse = async () => {
     "use server";
+    if (userId) {
+      try {
+        const userId = cookies().get("uid")?.value;
+        const courseId = idCourse;
+        const data = await deleteCourse({
+          courseId,
+          userId,
+        });
+      } catch (error) {
+        if (error.message === "not authorized") redirect("/signin");
+      }
+      redirect("/profile");
+    } else {
+      redirect("/signin");
+    }
+
   };
+  
   let levelImg = "";
   switch (level) {
     case 1:
