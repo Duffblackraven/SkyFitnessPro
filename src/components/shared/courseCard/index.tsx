@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { addCourse, deleteCourse} from "@/api/api";
 import { redirect } from "next/navigation";
+import { formatDay } from "@/helpers/formatDay";
 
 type CardProp = {
   name: string;
@@ -69,7 +70,7 @@ const CourseCard = ({
     }
 
   };
-  
+
   let levelImg = "";
   switch (level) {
     case 1:
@@ -128,7 +129,7 @@ const CourseCard = ({
             <svg className="w-[15px] h-[15px]">
               <use xlinkHref="/img/sprite.svg#icon-duration" />
             </svg>
-            <p className="text-min">{duration} дней</p>
+            <p className="text-min">{formatDay(duration)}</p>
           </div>
           <div className="flex gap-2 p-2.5 bg-light-grey rounded">
             <svg className="w-[18px] h-[18px]">
