@@ -234,3 +234,26 @@ export const updateCourseProgress = async ({ courseId, uId }) => {
     throw error
   }
 }
+
+export async function deleteCourse({ courseId, userId }) {
+  if (!userId) {
+    throw new Error("not authorized");
+  }
+
+  try {
+    const response = await fetch(
+      `${API_URL}/users/${userId}/${courseId}.json`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Не получилось удалить курс");
+    }
+
+    return response.json();
+  } catch (error) {
+    throw error;
+  }
+}
