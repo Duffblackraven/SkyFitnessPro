@@ -54,6 +54,7 @@ export default async function Home() {
                 progress={item.progress}
                 img={courseData[item._id].smImg}
                 isAdded = {userId && coursesUserId.includes(item._id) ? true : false}
+                level={item.level}
               />
             ))}
           </div>

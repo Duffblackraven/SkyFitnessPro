@@ -15,6 +15,7 @@ type CardProp = {
   img: string;
   showProgressAndButton?: boolean;
   isAdded: boolean;
+  level: number;
 };
 
 const CourseCard = ({
@@ -27,6 +28,7 @@ const CourseCard = ({
   item,
   showProgressAndButton = false,
   isAdded,
+  level
 }: CardProp) => {
   const userId = cookies().get("uid")?.value;
   const handleAddCourse = async () => {
@@ -44,13 +46,36 @@ const CourseCard = ({
       }
       redirect("/profile");
     } else {
-      throw new Error("Для добавления курса необходимо авторизоваться");
+      redirect("/signin");
     }
 
   };
   const handleDeleteCourse = async () => {
     "use server";
   };
+  let levelImg = "";
+  switch (level) {
+    case 1:
+      levelImg = "levelOne"
+      break;
+    case 2:
+      levelImg = "levelTwo"
+      break;
+    case 3:
+      levelImg = "levelThree"
+      break;
+    case 4:
+      levelImg = "levelFour"
+      break;
+    case 5:
+      levelImg = "levelFive"
+      break;
+
+    default:
+      levelImg="complexity"
+      break;
+  }
+
   return (
     <div className="bg-white rounded relative shadow-base">
       {userId && isAdded ? (
@@ -96,7 +121,7 @@ const CourseCard = ({
           </div>
           <div className="flex gap-2 p-2.5 bg-light-grey rounded">
             <svg className="w-[18px] h-[18px]">
-              <use xlinkHref="/img/sprite.svg#icon-complexity" />
+              <use xlinkHref={`/img/sprite.svg#icon-${levelImg}`} />
             </svg>
             <p className="text-min">Сложность</p>
           </div>
