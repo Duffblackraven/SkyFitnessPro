@@ -12,9 +12,9 @@ const SelectWorkoutModal = async ({ id }) => {
       <div className="bg-white rounded relative shadow-base w-[460px] p-10">
         <HeadingFour>Выберите тренировку</HeadingFour>
         <div className="grid">
-          {workoutList.map((elem) => (
-            <SelectWorkoutLesson key={id} id={elem.id} name={elem.name} />
-          ))}
+          {workoutList.map((elem) => 
+            <SelectWorkoutLesson done={elem.done} key={elem.id} id={elem.id} name={elem.name} />
+          )}
           <SelectWorkoutBtn id={id} />
         </div>
       </div>
