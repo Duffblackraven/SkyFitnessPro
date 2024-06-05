@@ -3,13 +3,6 @@ import Link from "next/link";
 import { logoutUser } from "@/actions";
 
 const UserDropDown = ({ userName}: {userName: string}) => {
-  // const logoutUser = () => {
-  //   // "use server"
-  // console.log(cookies().getAll);
-  //   // cookies().delete("email");
-  //   // cookies().delete("uid");
-  //   // redirect("/signin");
-  // };
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -18,7 +11,6 @@ const UserDropDown = ({ userName}: {userName: string}) => {
       <div className="grid gap-2.5">
         <p className="text-sm text-black">{userName}</p>
       </div>
-      {/* <FormaLogout logoutUser={logoutUser} /> */}
       <div className="grid gap-2.5">
         <Link
           href="/profile"
@@ -39,5 +31,4 @@ const UserDropDown = ({ userName}: {userName: string}) => {
     </div>
   );
 };
-// пользовтельская менюшка в хедере,2 кнопки , вход /выход мыло и прочее.
 export default UserDropDown;

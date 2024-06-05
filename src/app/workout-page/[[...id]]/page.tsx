@@ -18,7 +18,7 @@ import React, { useRef } from "react";
 const WorkoutPage = async ({ params }: {params: {id: string}}) => {
 
   const workout: workoutType = await getWorkoutById({ id: params.id[1] });
-  const uId = cookies().get("uId")?.value
+  const uId = cookies().get("uid")?.value
   if(!uId){
     redirect("/signin")
   }
@@ -69,6 +69,7 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
     })
 
     revalidateTag("progress")
+    redirect(`/workout-page/${params.id[0]}/${params.id[1]}`);
   }
   const userName = cookies().get("email")?.value;
   if(!userName){
@@ -98,11 +99,11 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
               : "Упражнений нет"}
           </div>
           <div className="w-[320px] mt-10 text-black">
-            {workout.exercises ? <Link href={`/workout-page/${params.id[0]}/${params.id[1]}/progress`}>
+            {workout.exercises ? <Link className="bg-bright-green hover:bg-bright-green-hov text-black text-sm py-4 px-[26px] rounded" href={`/workout-page/${params.id[0]}/${params.id[1]}/progress`}>
               Заполнить свой прогресс</Link> : 
               <form action={updateProgress}>
                 <Button green type="submit">Выполнено</Button>
-                </form>
+              </form>
                 }
           </div>
         </div>
