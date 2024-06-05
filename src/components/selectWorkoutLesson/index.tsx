@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-const SelectWorkoutLesson = ({ id, name, done }) => {
+const SelectWorkoutLesson = ({ id, name, done }: {id: string, name: string, done:boolean}) => {
   const [click, setClick] = useState(false);
-  const getIdWorkout = (id) => {
+  const getIdWorkout = (id: string) => {
     setClick((prev) => !prev);
     localStorage.setItem("idWorkout", id);
   };

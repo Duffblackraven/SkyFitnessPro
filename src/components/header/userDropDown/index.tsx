@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { logoutUser } from "@/actions";
 
-const UserDropDown = ({ userName, logoutUser }) => {
+const UserDropDown = ({ userName}: {userName: string}) => {
   // const logoutUser = () => {
   //   // "use server"
   // console.log(cookies().getAll);
@@ -27,7 +28,7 @@ const UserDropDown = ({ userName, logoutUser }) => {
         </Link>
         <Link href="/signin">
         <button
-        onClick={logoutUser}
+        onClick={()=> logoutUser()}
           type="submit"
           className="text-sm w-full rounded-full border-black border py-4 px-[26px] text-black"
         >

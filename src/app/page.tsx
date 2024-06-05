@@ -4,23 +4,31 @@ import CourseCard from "@/components/shared/courseCard";
 import ScrollToTopButton from "@/components/shared/scrollToTopButton";
 import { mapCourses } from "@/helpers/mapCourses";
 import { courseData } from "@/lib/courseData";
+import { courseType } from "@/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const courses = await getCourses();
 
+
+ 
   const userName = cookies().get("email")?.value;
-
-  const userId = cookies().get("uid")?.value;
-  let coursesUserId = [];
-  if (userId) {
-    const data = await getUserCourses({ userId });
-    const coursesUser = await mapCourses(data);
-    coursesUser.map((item)=>coursesUserId.push(item._id))
+  if (!userName) {
+    redirect("/signin")
   }
+  const userId = cookies().get("uid")?.value;
+   if (!userId) {
+    redirect("/signin")
+  }
+  let coursesUserId: string[] = [];
 
+  const data = await getUserCourses({ userId });
+  const coursesUser = await mapCourses(data);
+  coursesUser.map((item) => coursesUserId.push(item._id))
+  
+  const courses = await getCourses();
   return (
     <>
       <Header userName={userName} />
@@ -43,16 +51,16 @@ export default async function Home() {
         <section>
           <div className="grid grid-cols-card gap-10">
             {courses.map((item) => (
-                <CourseCard
+              <CourseCard
                 item={item}
-                idCourse = {item._id}
+                idCourse={item._id}
                 key={item._id}
                 name={item.nameRU}
                 time={item.time}
                 duration={item.duration}
                 progress={item.progress}
                 img={courseData[item._id].smImg}
-                isAdded = {userId && coursesUserId.includes(item._id) ? true : false}
+                isAdded={userId && coursesUserId.includes(item._id) ? true : false}
                 level={item.level}
               />
             ))}

@@ -6,24 +6,29 @@ import InfoBlock from "@/components/infoBlock";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
 import SkillCard from "@/components/skillCard";
 import { courseData } from "@/lib/courseData";
+import { courseType } from "@/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 import React from "react";
 
-const CoursePage = async ({ params }) => {
+const CoursePage = async ({ params }: {params: {id: string}}) => {
   const course = await getCourseById({ id: params.id })
   const userName = cookies().get("email")?.value;
-  console.log(course)
+  if(!userName){
+    redirect("/signin")
+  }
   return (
     <main className="pl-left pr-right">
+      
       <Header userName={userName} />
       <section className="mb-[60px]">
         <SkillCard src={courseData[course._id].img} alt={`Картинка для курса ${course.nameRU}`} />
         <SecondaryHeading>Подойдет для вас, если:</SecondaryHeading>
         <div className="grid grid-cols-3 gap-x-[17px] ">
           {course.fitting.map(
-            (item, index) => <CourseListItem number={index + 1} text={item} key={index} />)}
+            (item: string, index: number) => <CourseListItem number={index + 1} text={item} key={index} />)}
         </div>
       </section>
       <section className="mb-[60px]">
@@ -31,7 +36,7 @@ const CoursePage = async ({ params }) => {
 
         <div className="grid grid-cols-3 gap-y-9 bg-bright-green p-[30px] rounded-small">
           {course.directions.map(
-            (item, index) => <AreaBlock key={index} text={item} />
+            (item: string, index:number) => <AreaBlock key={index} text={item} />
           )}
         </div>
         <div className="p-10 flex justify-between items-end bg-white rounded relative shadow-base h-[500px] mt-[100px]">

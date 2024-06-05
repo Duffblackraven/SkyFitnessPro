@@ -25,18 +25,18 @@ const SignUpPage = () => {
   //   });
   // }
   // const signIn = () => {};
-  const handleSignup = async (data) => {
+  const handleSignup = async (data: FormData) => {
     "use server"
     let error = null
     try {
-      const { password, email } = Object.fromEntries(data)
-      console.log(password, email)
+      const { password, email } = Object.fromEntries(data) as {password: string, email: string}
+      
       const response = await signUp({ password, email })
       if (!password || !email) {
         return
       }
     } catch (err) {
-      console.log(err.message)
+      if(err instanceof Error)
       error = err.message
     } finally {
       if (!error) {

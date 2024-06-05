@@ -1,9 +1,9 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
 type ButtonPropType = {
-  type: string,
+  type: "button" | "submit",
   children: string,
-  onClick: () => void,
+  onClick?: () => void,
   green: boolean,
 }
 

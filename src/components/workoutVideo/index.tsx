@@ -1,7 +1,7 @@
 import { getCourseById, getWorkoutById } from "@/api/api";
 import React from "react";
 
-const WorkoutVideo = ({video}) => {
+const WorkoutVideo = ({video}: {video: string}) => {
   
   return (
     <iframe

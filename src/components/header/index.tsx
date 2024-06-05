@@ -5,7 +5,7 @@ import UserDropDown from "./userDropDown";
 import Logo from "../shared/logo";
 import Link from "next/link";
 
-const Header = ({userName}) => {
+const Header = ({userName}: {userName:string}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = () => {
     setIsOpen((prev) => !prev);

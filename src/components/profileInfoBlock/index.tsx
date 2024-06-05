@@ -4,15 +4,11 @@ import Button from "../shared/button";
 import HeadingFour from "../shared/headingFour";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+
+import { logoutUser } from "@/actions";
 
 const ProfileInfoBlock = () => {
-  const logoutUser = async () => {
-    "use server"
-    cookies().delete("email");
-    cookies().delete("uid");
-    redirect("/signin");
-  };
+ 
 
   const email = cookies().get("email")?.value
   return (

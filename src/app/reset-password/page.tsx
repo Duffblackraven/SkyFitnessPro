@@ -21,10 +21,10 @@ const ResetPasswordPage = () => {
   //     [name]: value,
   //   });
   // }
-  const handleResetPassword = async (data) => {
+  const handleResetPassword = async (data: FormData) => {
     "use server"
     try {
-      const { password } = Object.fromEntries(data)
+      const { password } = Object.fromEntries(data) as {password: string}
       const response = await changePassword({ password })
       console.log(response)
     } catch (error) {

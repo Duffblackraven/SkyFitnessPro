@@ -8,25 +8,30 @@ import PrimaryHeading from "@/components/shared/primaryHeading";
 import WorkoutBreadCrumbs from "@/components/workoutBreadCrumbs";
 import WorkoutVideo from "@/components/workoutVideo";
 import WithAuth from "@/hoc/WithAuth";
+import { exerciseType, workoutType } from "@/types/types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React, { useRef } from "react";
 
-const WorkoutPage = async ({ params }) => {
+const WorkoutPage = async ({ params }: {params: {id: string}}) => {
 
-  const workout = await getWorkoutById({ id: params.id[1] });
-
+  const workout: workoutType = await getWorkoutById({ id: params.id[1] });
+  const uId = cookies().get("uId")?.value
+  if(!uId){
+    redirect("/signin")
+  }
   const progress = await getUserProgress({
-    uId: cookies().get("uid").value,
+    uId,
     courseId: params.id[0],
     workoutId: params.id[1],
   });
-  const updateProgress = async (data) => {
+  const updateProgress = async (data: FormData) => {
     "use server"
     if (!workout.exercises) {
       updateUserProgress({
-        uId: cookies().get("uid").value,
+        uId,
         courseId: params.id[0],
         workoutId: params.id[1],
         progress: {done: true},
@@ -37,17 +42,17 @@ const WorkoutPage = async ({ params }) => {
     for (const key in formValue) {
      if(key.includes("progress")) formData.push(formValue[key])
     }
-    let progressValue = {
+    let progressValue: {done: boolean, exercises: {name: string, progress: number, quantity: number}[]} = {
       done: false,
       exercises: [],
     }
-    Object.keys(formData).forEach((key, index) => {
+    Object.keys(formData).forEach((key: string, index:number) => {
       progressValue = {
         ...progressValue,
         exercises: [
           ...progressValue.exercises,
           {
-            ...workout.exercises[index],
+            ...workout.exercises![index],
             progress: +formData[key],
           }
         ],
@@ -57,7 +62,7 @@ const WorkoutPage = async ({ params }) => {
 
     })
     updateUserProgress({
-            uId: cookies().get("uid").value,
+            uId,
       courseId: params.id[0],
       workoutId: params.id[1],
       progress: progressValue,
@@ -66,7 +71,9 @@ const WorkoutPage = async ({ params }) => {
     revalidateTag("progress")
   }
   const userName = cookies().get("email")?.value;
-
+  if(!userName){
+    redirect("/signin")
+  }
   return (
     <>
       <Header userName={userName}/>
@@ -78,7 +85,7 @@ const WorkoutPage = async ({ params }) => {
           <HeadingFour>Упражнения тренировки:</HeadingFour>
           <div className="grid grid-cols-3 justify-between gap-5 mt-5 ">
             {workout.exercises
-              ? workout.exercises.map((ex, index) => (
+              ? workout.exercises.map((ex, index: number) => (
                 <ExerciseBlock
                   key={index}
                   progress={
@@ -94,7 +101,7 @@ const WorkoutPage = async ({ params }) => {
             {workout.exercises ? <Link href={`/workout-page/${params.id[0]}/${params.id[1]}/progress`}>
               Заполнить свой прогресс</Link> : 
               <form action={updateProgress}>
-                <Button type="submit">Выполнено</Button>
+                <Button green type="submit">Выполнено</Button>
                 </form>
                 }
           </div>

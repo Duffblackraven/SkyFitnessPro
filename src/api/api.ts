@@ -34,7 +34,7 @@ export async function getWorkouts() {
   }
 }
 //функция получить курс по айди
-export async function getCourseById({ id }) {
+export async function getCourseById({ id }: {id:string}) {
   console.log(id, "отличчали между собой");
   try {
     const response = await fetch(`${API_URL}/courses/${id}.json`);
@@ -50,7 +50,7 @@ export async function getCourseById({ id }) {
 }
 
 //функция получения воркаута по айди
-export async function getWorkoutById({ id }) {
+export async function getWorkoutById({ id }: {id:string}) {
   try {
     const response = await fetch(`${API_URL}/workouts/${id}.json`);
     if (!response.ok) {
@@ -63,7 +63,7 @@ export async function getWorkoutById({ id }) {
   }
 }
 
-export async function getUserWorkoutById({ uId, workoutId, courseId }) {
+export async function getUserWorkoutById({ uId, workoutId, courseId }: {uId: string, workoutId: string, courseId: string}) {
   try {
     const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`);
     if (!response.ok) {
@@ -76,7 +76,7 @@ export async function getUserWorkoutById({ uId, workoutId, courseId }) {
   }
 }
 
-export async function addCourse({ courseId, userId }) {
+export async function addCourse({ courseId, userId }: {courseId: string, userId:string}) {
   if (!userId) {
     throw new Error("not authorized");
   }
@@ -85,16 +85,29 @@ export async function addCourse({ courseId, userId }) {
     const { workouts } = await getCourseById({ id: courseId });
 
     const workoutsData = await Promise.all(
-      workouts.map((workoutId) => getWorkoutById({ id: workoutId }))
+      workouts.map((workoutId: string) => getWorkoutById({ id: workoutId }))
     );
+    type exerciseType = {
+      name: string,
+      quantity: number,
+      progress: number,
+    }
+    type accType = {
+      
+      [key:string]:{
+        done: boolean,
+        exercises: exerciseType[]
 
-    const progressObj = workouts.reduce((acc, workoutId, index) => {
+        }
+      } 
+    
+    const progressObj = workouts.reduce((acc: {progress: number} | accType, workoutId: string, index: number) => {
       const exercises = workoutsData[index].exercises;
       if (!exercises) {
         acc[workoutId] = { done: false };
       } else {
         acc[workoutId] = exercises.reduce(
-          (exerciseAcc, exercise, exerciseIndex) => {
+          (exerciseAcc: {done: boolean, exercises: exerciseType[]} , exercise: exerciseType, exerciseIndex: number) => {
             exerciseAcc.exercises[exerciseIndex] = {
               name: exercise.name,
               quantity: exercise.quantity,
@@ -128,7 +141,7 @@ export async function addCourse({ courseId, userId }) {
   }
 }
 
-export async function getUserCourses({ userId }) {
+export async function getUserCourses({ userId }: {userId: string}) {
   if (!userId) {
     throw new Error("Нет");
   }
@@ -146,19 +159,23 @@ export async function getUserCourses({ userId }) {
     throw error;
   }
 }
-
-export async function getCourseWorkouts({ id }) {
-  console.log(id);
+type workoutType = {
+id: string,
+name: string,
+done: boolean,
+}
+export async function getCourseWorkouts({ id }: {id: string}) {
+ 
   try {
     const { workouts } = await getCourseById({ id });
 
     const workoutData = await Promise.all(
-      workouts.map((workout) => getUserWorkoutById({ workoutId: workout, uId: cookies().get("uid")?.value, courseId: id }))
+      workouts.map((workout: string) => getUserWorkoutById({ workoutId: workout, uId: cookies().get("uid")?.value || "", courseId: id }))
     ); console.log(workoutData, "typaya zalupa blyta hyli ti ne rabotaesh to blyat a")
     const workoutNames = await Promise.all(
-      workouts.map((workout) => getWorkoutById({ id: workout }))
+      workouts.map((workout: string) => getWorkoutById({ id: workout }))
     );
-    const workoutList = workouts.reduce((acc, workout, index) => {
+    const workoutList = workouts.reduce((acc: workoutType[], workout: string, index: number) => {
       return [
         ...acc,
         {
@@ -174,7 +191,7 @@ export async function getCourseWorkouts({ id }) {
   }
 }
 
-export const getUserProgress = async ({ uId, courseId, workoutId }) => {
+export const getUserProgress = async ({ uId, courseId, workoutId }: {uId: string, courseId: string, workoutId: string}) => {
   console.log(uId, courseId, workoutId);
   try {
     const response = await fetch(
@@ -194,7 +211,7 @@ export const getUserProgress = async ({ uId, courseId, workoutId }) => {
 };
 
 
-export const updateUserProgress = async ({ uId, courseId, workoutId, progress }) => {
+export const updateUserProgress = async ({ uId, courseId, workoutId, progress }: {uId: string, courseId: string, workoutId: string, progress: {done: boolean}}) => {
   try {
     const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`,
       {
@@ -214,11 +231,11 @@ export const updateUserProgress = async ({ uId, courseId, workoutId, progress })
 }
 
 
-export const updateCourseProgress = async ({ courseId, uId }) => {
+export const updateCourseProgress = async ({ courseId, uId }:{uId: string, courseId: string}) => {
   try {
     const data = await getCourseWorkouts({ id: courseId })
     console.log(data, "залупа номер одиен")
-    const progress = data.reduce((acc, elem) => elem.done ? acc + 1 : acc, 0) / data.length * 100
+    const progress = data.reduce((acc: number, elem: {done: boolean}) => elem.done ? acc + 1 : acc, 0) / data.length * 100
     console.log(progress, "ЗАЛУПА ЕБАНАЯ")
     const response = await fetch(`${API_URL}/users/${uId}/${courseId}/progress.json`,
       {
@@ -235,14 +252,14 @@ export const updateCourseProgress = async ({ courseId, uId }) => {
   }
 }
 
-export async function deleteCourse({ courseId, userId }) {
-  if (!userId) {
+export async function deleteCourse({ courseId, uId }: {uId: string, courseId: string}) {
+  if (!uId) {
     throw new Error("not authorized");
   }
 
   try {
     const response = await fetch(
-      `${API_URL}/users/${userId}/${courseId}.json`,
+      `${API_URL}/users/${uId}/${courseId}.json`,
       {
         method: "DELETE",
       }

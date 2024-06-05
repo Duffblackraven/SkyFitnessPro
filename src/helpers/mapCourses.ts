@@ -1,6 +1,7 @@
 import { getCourseById } from "@/api/api"
+import { courseType } from "@/types/types"
 
-export const mapCourses = async (data) => {
+export const mapCourses = async (data: {[key: string]: courseType}) => {
     const result = []
     for (const key in data) {
       const course = await getCourseById({ id: key })
