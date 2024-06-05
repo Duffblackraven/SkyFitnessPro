@@ -17,3 +17,4 @@ export const formatDay = (duration) => {
   }
   return `${duration} ${stroke}`;
 };
+
