@@ -10,10 +10,9 @@ import Link from "next/link";
 
 export default async function Home() {
   const courses = await getCourses();
-  // console.log("Количество курсов:", courses.length);
-  // console.log("Описание курсов:", courses);
+
   const userName = cookies().get("email")?.value;
-// __________________________________________________
+
   const userId = cookies().get("uid")?.value;
   let coursesUserId = [];
   if (userId) {

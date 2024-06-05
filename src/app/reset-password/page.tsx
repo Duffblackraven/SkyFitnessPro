@@ -33,10 +33,10 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <section className="shadow-base rounded flex flex-col items-center p-[30px] w-[360px] m-auto text-black">
+    <section className="shadow-base rounded flex flex-col items-center align-items:center p-[30px] w-[360px] m-auto mt-[15%]  text-black">
       <Logo />
-      <div className="mt-12 mb-[34px] grid gap-y-2.5 w-full">
-        <form action={handleResetPassword}>
+      <div className="">
+        <form className="mt-12 mb-[34px] grid gap-y-2.5 w-full" action={handleResetPassword}>
           <Input
             type={"password"}
             name={"password"}
@@ -50,7 +50,7 @@ const ResetPasswordPage = () => {
             
           />
 
-          <div className="flex flex-col gap-2.5 w-full">
+          <div className="mt-12 mb-[30px] w-full text-black">
             <Button  type={"submit"} green={true}>
               Подтвердить
             </Button>
