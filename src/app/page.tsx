@@ -10,10 +10,9 @@ import Link from "next/link";
 
 export default async function Home() {
   const courses = await getCourses();
-  // console.log("Количество курсов:", courses.length);
-  // console.log("Описание курсов:", courses);
+
   const userName = cookies().get("email")?.value;
-// __________________________________________________
+
   const userId = cookies().get("uid")?.value;
   let coursesUserId = [];
   if (userId) {
@@ -54,6 +53,7 @@ export default async function Home() {
                 progress={item.progress}
                 img={courseData[item._id].smImg}
                 isAdded = {userId && coursesUserId.includes(item._id) ? true : false}
+                level={item.level}
               />
             ))}
           </div>
