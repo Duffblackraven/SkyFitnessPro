@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-const SelectWorkoutBtn = ({ id }) => {
+const SelectWorkoutBtn = ({ id }: {id: string}) => {
     const router = useRouter();
 
   const goToTheWorkoutPage = () => {

@@ -5,16 +5,20 @@ import { auth } from "@/firebase/firebase";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-const InfoBlock = ({ courseId }) => {
+const InfoBlock = ({ courseId }: { courseId: string }) => {
   const onClick = async () => {
     "use server";
     try {
       const userId = cookies().get("uid")?.value;
-      const data = await addCourse({
+      if(!userId){
+        throw new Error("not authorized")
+      }
+      await addCourse({
         courseId,
         userId,
       });
     } catch (error) {
+      if(error instanceof Error)
       if (error.message === "not authorized") redirect("/signin");
     }
     redirect("/profile");

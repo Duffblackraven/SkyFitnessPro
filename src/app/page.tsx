@@ -4,24 +4,28 @@ import CourseCard from "@/components/shared/courseCard";
 import ScrollToTopButton from "@/components/shared/scrollToTopButton";
 import { mapCourses } from "@/helpers/mapCourses";
 import { courseData } from "@/lib/courseData";
+import { courseType } from "@/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const courses = await getCourses();
+
   // console.log("Количество курсов:", courses.length);
   // console.log("Описание курсов:", courses);
   const userName = cookies().get("email")?.value;
-// __________________________________________________
+  if (!userName) {
+    redirect("/signin")
+  }
   const userId = cookies().get("uid")?.value;
-  let coursesUserId = [];
+  let coursesUserId: string[] = [];
   if (userId) {
     const data = await getUserCourses({ userId });
     const coursesUser = await mapCourses(data);
-    coursesUser.map((item)=>coursesUserId.push(item._id))
+    coursesUser.map((item) => coursesUserId.push(item._id))
   }
-
+  const courses = await getCourses();
   return (
     <>
       <Header userName={userName} />
@@ -44,16 +48,16 @@ export default async function Home() {
         <section>
           <div className="grid grid-cols-card gap-10">
             {courses.map((item) => (
-                <CourseCard
+              <CourseCard
                 item={item}
-                idCourse = {item._id}
+                idCourse={item._id}
                 key={item._id}
                 name={item.nameRU}
                 time={item.time}
                 duration={item.duration}
                 progress={item.progress}
                 img={courseData[item._id].smImg}
-                isAdded = {userId && coursesUserId.includes(item._id) ? true : false}
+                isAdded={userId && coursesUserId.includes(item._id) ? true : false}
                 level={item.level}
               />
             ))}

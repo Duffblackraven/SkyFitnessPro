@@ -4,8 +4,8 @@ import { getCourseWorkouts } from "@/api/api";
 import SelectWorkoutLesson from "../selectWorkoutLesson";
 import SelectWorkoutBtn from "../selectWorkoutBtn";
 
-const SelectWorkoutModal = async ({ id }) => {
-  const workoutList = await getCourseWorkouts({ id });
+const SelectWorkoutModal = async ({ id }: {id: string}) => {
+  const workoutList: {id: string, name: string, done:boolean}[] = await getCourseWorkouts({ id });
 
   return (
     <section className="flex items-center justify-center h-screen ">

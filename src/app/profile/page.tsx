@@ -3,22 +3,29 @@ import Header from "@/components/header";
 import ProfileInfoBlock from "@/components/profileInfoBlock";
 import CourseCard from "@/components/shared/courseCard";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
-import { auth } from "@/firebase/firebase";
-import { logoutUser } from "@/helpers/logout";
+
+
 import { mapCourses } from "@/helpers/mapCourses";
-import { transormData } from "@/helpers/transformData";
+
 import WithAuth from "@/hoc/WithAuth";
 import { courseData } from "@/lib/courseData";
+import { courseType, mapCourseType } from "@/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const ProfilePage = async () => {
   const userId = cookies().get("uid")?.value;
+  if(!userId){
+    redirect("/signIn")
+  }
   const data = await getUserCourses({ userId });
   const userName = cookies().get("email")?.value;
-  
-  const courses = await mapCourses(data);
+  if(!userName){
+    redirect("/signin")
+  }
+  const courses: mapCourseType[] = await mapCourses(data);
   return (
     <>
       <Header userName={userName} />

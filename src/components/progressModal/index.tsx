@@ -1,13 +1,14 @@
 import React from 'react'
 import ModalBox from '../shared/modalBox'
 import Input from '../shared/input/input'
+import { exerciseType } from '@/types/types'
 
-const ProgressModal = ({ exercise, action }) => {
+const ProgressModal = ({ exercise, action }: {exercise?: exerciseType[], action: (data: FormData) => Promise<void>}) => {
   return (
     <form action={action}>
       <ModalBox title={"Мой прогресс"} buttonTitle={"Сохранить"}>
 
-        {exercise.map((elem, index) => <label>
+        {exercise?.map((elem, index) => <label key={index}>
           Сколько раз Вы сделали {elem.name}
           <Input min={0} name={`progress_${index}`} placeholder='0' type="number" />
         </label>)}

@@ -1,4 +1,4 @@
-export const formatDay = (duration) => {
+export const formatDay = (duration: number) => {
   let lastItem = duration % 10;
   let stroke = "";
   if (lastItem === 1) {

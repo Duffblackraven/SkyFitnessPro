@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { addCourse, deleteCourse} from "@/api/api";
 import { redirect } from "next/navigation";
 import { formatDay } from "@/helpers/formatDay";
+import { courseType, mapCourseType } from "@/types/types";
 
 type CardProp = {
   name: string;
@@ -15,7 +16,9 @@ type CardProp = {
   img: string;
   showProgressAndButton?: boolean;
   isAdded: boolean;
-  level: number;
+  level?: number;
+  item: mapCourseType | courseType;
+  idCourse: string;
 };
 
 const CourseCard = ({
@@ -37,11 +40,15 @@ const CourseCard = ({
       try {
         const userId = cookies().get("uid")?.value;
         const courseId = idCourse;
-        const data = await addCourse({
+        if(!userId){
+          redirect("/signin")
+        }
+        await addCourse({
           courseId,
           userId,
         });
       } catch (error) {
+        if(error instanceof Error)
         if (error.message === "not authorized") redirect("/signin");
       }
       redirect("/profile");
@@ -55,13 +62,17 @@ const CourseCard = ({
     "use server";
     if (userId) {
       try {
-        const userId = cookies().get("uid")?.value;
+        const uId = cookies().get("uid")?.value;
         const courseId = idCourse;
-        const data = await deleteCourse({
+        if(!uId){
+          redirect("/signin")
+        }
+         await deleteCourse({
           courseId,
-          userId,
+          uId,
         });
       } catch (error) {
+        if(error instanceof Error)
         if (error.message === "not authorized") redirect("/signin");
       }
       redirect("/profile");
