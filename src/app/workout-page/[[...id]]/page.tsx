@@ -83,7 +83,7 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
         <WorkoutVideo video={workout.video} />
         <div className="p-10 rounded shadow-base text-black">
           <HeadingFour>Упражнения тренировки:</HeadingFour>
-          <div className="grid grid-cols-3 justify-between gap-5 mt-5">
+          <div className="grid grid-cols-3 justify-between gap-5 mt-5 ">
             {workout.exercises
               ? workout.exercises.map((ex, index: number) => (
                 <ExerciseBlock

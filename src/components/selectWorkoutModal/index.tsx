@@ -8,7 +8,7 @@ const SelectWorkoutModal = async ({ id }: {id: string}) => {
   const workoutList: {id: string, name: string, done:boolean}[] = await getCourseWorkouts({ id });
 
   return (
-    <section className="flex items-center justify-center h-screen ">
+    <section className="flex items-center justify-center h-screen text-black">
       <div className="bg-white rounded relative shadow-base w-[460px] p-10">
         <HeadingFour>Выберите тренировку</HeadingFour>
         <div className="grid">

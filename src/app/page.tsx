@@ -12,19 +12,22 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
 
-  // console.log("Количество курсов:", courses.length);
-  // console.log("Описание курсов:", courses);
+
+ 
   const userName = cookies().get("email")?.value;
   if (!userName) {
     redirect("/signin")
   }
   const userId = cookies().get("uid")?.value;
-  let coursesUserId: string[] = [];
-  if (userId) {
-    const data = await getUserCourses({ userId });
-    const coursesUser = await mapCourses(data);
-    coursesUser.map((item) => coursesUserId.push(item._id))
+   if (!userId) {
+    redirect("/signin")
   }
+  let coursesUserId: string[] = [];
+
+  const data = await getUserCourses({ userId });
+  const coursesUser = await mapCourses(data);
+  coursesUser.map((item) => coursesUserId.push(item._id))
+  
   const courses = await getCourses();
   return (
     <>

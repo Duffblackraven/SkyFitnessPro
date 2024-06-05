@@ -108,7 +108,7 @@ const CourseCard = ({
   return (
     <div className="bg-white rounded relative shadow-base">
       {userId && isAdded ? (
-        <form action={handleDeleteCourse} className="absolute right-3 top-3">
+        <form action={handleDeleteCourse} className="absolute right-3 top-3 text-black">
           <button
             type="submit"
             data-tooltip="Удалить курс"
@@ -120,7 +120,7 @@ const CourseCard = ({
           </button>
         </form>
       ) : (
-        <form action={handleAddCourse} className="absolute right-3 top-3">
+        <form action={handleAddCourse} className="absolute right-3 top-3 text-black">
           <button type="submit" data-tooltip="Добавить курс"
             className="after:content-[attr(data-tooltip)] after:opacity-0 after:transition-opacity after:rounded-md after:border after:border-black after:text-nowrap after:z-10 after:absolute after:top-10 after:left-6 after:bg-white after:text-[14px] after:p-1.5 hover:after:opacity-100"
             >
