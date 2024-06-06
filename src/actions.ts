@@ -46,7 +46,7 @@ export const handleSignin = async (_: unknown, data: FormData) => {
   }
 };
 
-export const handleSignup = async (data: FormData) => {
+export const handleSignup = async (_: unknown,data: FormData) => {
   let error = null;
   try {
     const { password, email } = Object.fromEntries(data) as {
@@ -54,9 +54,9 @@ export const handleSignup = async (data: FormData) => {
       email: string;
     };
 
-    const response = await signUp({ password, email });
+    const response = await signUp({ password, email});
 
-    if (!password || !email) {
+    if (!password || !email ) {
       error = "Заполните все поля!!!";
       return {
         message: "Заполните все поля!!!",
