@@ -1,4 +1,4 @@
-export const courseData =
+export const courseData :any =
 {
     "6i67sm": {
         img: "/img/step.png",

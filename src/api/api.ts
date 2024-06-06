@@ -101,7 +101,7 @@ export async function addCourse({ courseId, userId }: {courseId: string, userId:
         }
       } 
     
-    const progressObj = workouts.reduce((acc: {progress: number} | accType, workoutId: string, index: number) => {
+    const progressObj = workouts.reduce((acc:  any, workoutId: string, index: number) => {
       const exercises = workoutsData[index].exercises;
       if (!exercises) {
         acc[workoutId] = { done: false };

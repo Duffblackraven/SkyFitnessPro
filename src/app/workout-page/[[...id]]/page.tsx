@@ -37,7 +37,7 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
         progress: {done: true},
       })
     }
-    let formData = []
+    let formData :any[] = []
     const formValue = Object.fromEntries(data)
     for (const key in formValue) {
      if(key.includes("progress")) formData.push(formValue[key])
@@ -46,7 +46,7 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
       done: false,
       exercises: [],
     }
-    Object.keys(formData).forEach((key: string, index:number) => {
+    Object.keys(formData).forEach((key: any, index:number) => {
       progressValue = {
         ...progressValue,
         exercises: [
