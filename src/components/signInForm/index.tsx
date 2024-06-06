@@ -14,12 +14,12 @@ const SignInForm = () => {
             <Input type={"text"} name={"email"} placeholder={"Логин"} />
             <Input type={"password"} name={"password"} placeholder={"Пароль"} />
             <div className="flex mt-[24px] flex-col gap-2.5 w-full text-black">
+            <p className="text-red-600 text-center">
+                {state?.message }
+                </p>
                 <Button type={"submit"} green={true}>
                     Войти
                 </Button>
-                <p className="text-red-600 text-center">
-                {state?.message }
-                </p>
                 <Link
                     className="w-full text-center text-sm border py-4 px-[26px] rounded border-black hover:bg-light-grey active:bg-dark-grey"
                     href="/signup"
