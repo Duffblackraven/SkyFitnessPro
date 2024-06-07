@@ -10,7 +10,7 @@ export async function getCourses() {
   try {
     const response = await fetch(`${API_URL}/courses.json`);
     if (!response.ok) {
-      throw new Error("Заглушечка-хуеюшечка");
+      throw new Error("Заглушечка");
     }
     const data = await response.json();
     console.log(data, "результат внутри апи");
@@ -101,7 +101,7 @@ export async function addCourse({ courseId, userId }: {courseId: string, userId:
         }
       } 
     
-    const progressObj = workouts.reduce((acc: {progress: number} | accType, workoutId: string, index: number) => {
+    const progressObj = workouts.reduce((acc:  any, workoutId: string, index: number) => {
       const exercises = workoutsData[index].exercises;
       if (!exercises) {
         acc[workoutId] = { done: false };

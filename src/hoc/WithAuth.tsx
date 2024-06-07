@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const WithAuth = (Component) => {
-  return function ComponentWithAuth(props) {
+const WithAuth = (Component:any) => {
+  return function ComponentWithAuth(props:any) {
     const uid = cookies().get("uid")?.name;
 
     if (!uid) redirect("/signin");
