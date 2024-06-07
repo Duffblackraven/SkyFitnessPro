@@ -1,6 +1,7 @@
 import { getUserProgress, getWorkoutById, updateUserProgress } from "@/api/api";
 import ExerciseBlock from "@/components/exerciseBlock";
 import Header from "@/components/header";
+import ModalSuccess from "@/components/modalSuccess";
 import ProgressModal from "@/components/progressModal";
 import Button from "@/components/shared/button";
 import HeadingFour from "@/components/shared/headingFour";
@@ -69,14 +70,15 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
     })
 
     revalidateTag("progress")
-    redirect(`/workout-page/${params.id[0]}/${params.id[1]}`);
+    redirect(`/workout-page/${params.id[0]}/${params.id[1]}/modalSuccess`);
   }
   const userName = cookies().get("email")?.value;
   if(!userName){
     redirect("/signin")
   }
   return (
-    <>
+    <div className="relative h-screen">
+    <div className={`${params.id[2] === "progress" || params.id[2] === "modalSuccess" ? "fixed top-0 left-0 w-full h-full bg-gray-500 opacity-50" : ""}`}></div>
       <Header userName={userName}/>
       <main className="pl-left pr-right">
         <PrimaryHeading>{workout.name}</PrimaryHeading>
@@ -108,8 +110,9 @@ const WorkoutPage = async ({ params }: {params: {id: string}}) => {
           </div>
         </div>
         {params.id[2] === "progress" && <ProgressModal action={updateProgress} exercise={workout.exercises} />}
+        {params.id[2] === "modalSuccess" && <ModalSuccess paramOne={params.id[0]} paramTwo={params.id[1]} />}
       </main>
-    </>
+    </div>
   );
 };
 
