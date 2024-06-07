@@ -10,7 +10,7 @@ export async function getCourses() {
   try {
     const response = await fetch(`${API_URL}/courses.json`);
     if (!response.ok) {
-      throw new Error("Заглушечка-хуеюшечка");
+      throw new Error("Заглушечка");
     }
     const data = await response.json();
     console.log(data, "результат внутри апи");
