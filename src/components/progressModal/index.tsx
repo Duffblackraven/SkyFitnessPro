@@ -8,13 +8,10 @@ const ProgressModal = ({ exercise, action }: {exercise?: exerciseType[], action:
     <form action={action} className='absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 w-[426px]'>
       <ModalBox title={"Мой прогресс"} buttonTitle={"Сохранить"}>
 
-
-        {exercise?.map((elem, index) => <label key={index}>
-
-    
+        {exercise?.map((elem, index) => <label key={index}>    
 
           Сколько раз Вы сделали {elem.name}
-          <Input min={0} name={`progress_${index}`} placeholder="0" type="number" />
+          <Input min={0} max={elem.quantity} name={`progress_${index}`} placeholder="0" type="number" />
         </label>)}
 
       </ModalBox>

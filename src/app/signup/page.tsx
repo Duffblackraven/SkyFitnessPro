@@ -12,8 +12,9 @@ const SignUpPage = () => {
   return (
     <section className="shadow-base rounded flex flex-col items-center p-[30px] w-[360px] m-auto mt-[15%] text-black">
       <Logo />
-      <SignUpForm/>
-      <div className="mt-12 mb-[34px] grid gap-y-2.5 w-full text-black"></div>
+      <div className="mt-12 mb-[34px] grid gap-y-2.5 w-full text-black">
+        <SignUpForm />
+      </div>
     </section>
   );
 };
