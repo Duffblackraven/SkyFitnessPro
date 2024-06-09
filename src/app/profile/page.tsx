@@ -1,15 +1,12 @@
-import { getCourseById, getUserCourses } from "@/api/api";
+import { getUserCourses } from "@/api/api";
 import Header from "@/components/header";
 import ProfileInfoBlock from "@/components/profileInfoBlock";
 import CourseCard from "@/components/shared/courseCard";
 import SecondaryHeading from "@/components/shared/secondaryHeading";
-
-
 import { mapCourses } from "@/helpers/mapCourses";
-
 import WithAuth from "@/hoc/WithAuth";
 import { courseData } from "@/lib/courseData";
-import { courseType, mapCourseType } from "@/types/types";
+import { mapCourseType } from "@/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -34,7 +31,6 @@ const ProfilePage = async () => {
           <SecondaryHeading>Профиль</SecondaryHeading>
           <div className="flex flex-col md:flex-row gap-y-7 md:gap-y-0 md:gap-x-8 shadow-base p-[30px] rounded">
             <Image
-            // /mr-8
               className="block m-[auto] md:m-0"
               src="/img/profile.png"
               alt="Профиль"

@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import React from 'react'
 
 type ButtonPropType = {
   type: "button" | "submit",
@@ -9,10 +9,9 @@ type ButtonPropType = {
 
 const Button = ({ children, onClick, type, green }:ButtonPropType)  => {
   return (
-  <button type={type} onClick={onClick} className={`w-full text-black text-nowrap rounded py-4 px-[26px] text-min ${green ? 'bg-bright-green hover:bg-bright-green-hov active:bg-black active:text-black' : 'bg-white border border-black'} `}>
+  <button type={type} onClick={onClick} className={`w-full text-black text-nowrap rounded py-4 px-[26px] text-sm ${green ? 'bg-bright-green hover:bg-bright-green-hov active:bg-black active:text-black' : 'bg-white border border-black'} `}>
     {children}
   </button>
   )
 }
-//кнопка либо зеленая либо белая, принимает пропсами текст, тип, иконка и онклик
 export default Button

@@ -49,9 +49,10 @@ export const handleSignin = async (_: unknown, data: FormData) => {
 export const handleSignup = async (_: unknown, data: FormData) => {
   let error = null;
   try {
-    const { password, email } = Object.fromEntries(data) as {
+    const { password, email, password_repeat } = Object.fromEntries(data) as {
       password: string;
       email: string;
+      password_repeat: string;
     };
 
     const response = await signUp({ password, email });
@@ -62,12 +63,21 @@ export const handleSignup = async (_: unknown, data: FormData) => {
         message: "Заполните все поля!!!",
       };
     }
+    
     if (password.length < 6) {
       error = "Пароль должен быть больше 5 символов!!!";
       return {
         message: "Пароль должен быть больше 5 символов!!!",
       };
     }
+
+    if (password !== password_repeat) {
+      error = "Пароли не совпадают";
+      return {
+        message: "Пароли не совпадают",
+      };
+    }
+
   } catch (err) {
     if (err instanceof Error) error = err.message;
   } finally {

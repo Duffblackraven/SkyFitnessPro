@@ -2,7 +2,6 @@ import React from "react";
 import ProgressBar from "../shared/progressBar";
 
 const ExerciseBlock = ({ title, progress }: {title: string, progress: number}) => {
-  console.log(progress);
   return (
     <div className="">
       <ProgressBar
@@ -13,7 +12,7 @@ const ExerciseBlock = ({ title, progress }: {title: string, progress: number}) =
         id={"exerciseId"}
         title={`${title} - ${progress}%`} 
         />
-     </div>
+    </div>
   );
 };
 
