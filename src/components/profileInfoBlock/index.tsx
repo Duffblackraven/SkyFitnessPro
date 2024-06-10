@@ -1,4 +1,3 @@
-
 import React from "react";
 import Button from "../shared/button";
 import HeadingFour from "../shared/headingFour";
@@ -18,4 +17,5 @@ const ProfileInfoBlock = () => {
     </div>
   );
 };
+
 export default ProfileInfoBlock;

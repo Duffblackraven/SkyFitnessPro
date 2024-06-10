@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { logoutUser } from "@/actions";
 
-const UserDropDown = ({ userName}: {userName: string}) => {
+const UserDropDown = ({ userName }: { userName: string }) => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -19,16 +19,17 @@ const UserDropDown = ({ userName}: {userName: string}) => {
           Мой профиль
         </Link>
         <Link href="/signin">
-        <button
-        onClick={()=> logoutUser()}
-          type="submit"
-          className="text-sm w-full rounded-full border-black border py-4 px-[26px] text-black"
-        >
-          Выйти
-        </button>
+          <button
+            onClick={() => logoutUser()}
+            type="submit"
+            className="text-sm w-full rounded-full border-black border py-4 px-[26px] text-black"
+          >
+            Выйти
+          </button>
         </Link>
       </div>
     </div>
   );
 };
+
 export default UserDropDown;

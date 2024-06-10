@@ -31,6 +31,5 @@ const InfoBlock = ({ courseId }: { courseId: string }) => {
     </div>
   );
 };
-//будет меняться текст в кнопке, событие на кнопке
-//в зависимости от того, авторизован ли пользователь.
+
 export default InfoBlock;

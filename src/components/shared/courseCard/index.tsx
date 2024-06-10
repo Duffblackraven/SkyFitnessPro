@@ -3,7 +3,7 @@ import React from "react";
 import ProgressBar from "../progressBar";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { addCourse, deleteCourse} from "@/api/api";
+import { addCourse, deleteCourse } from "@/api/api";
 import { redirect } from "next/navigation";
 import { formatDay } from "@/helpers/formatDay";
 import { courseType, mapCourseType } from "@/types/types";
@@ -40,7 +40,7 @@ const CourseCard = ({
       try {
         const userId = cookies().get("uid")?.value;
         const courseId = idCourse;
-        if(!userId){
+        if (!userId) {
           redirect("/signin")
         }
         await addCourse({
@@ -48,8 +48,8 @@ const CourseCard = ({
           userId,
         });
       } catch (error) {
-        if(error instanceof Error)
-        if (error.message === "not authorized") redirect("/signin");
+        if (error instanceof Error)
+          if (error.message === "not authorized") redirect("/signin");
       }
       redirect("/profile");
     } else {
@@ -64,16 +64,16 @@ const CourseCard = ({
       try {
         const uId = cookies().get("uid")?.value;
         const courseId = idCourse;
-        if(!uId){
+        if (!uId) {
           redirect("/signin")
         }
-         await deleteCourse({
+        await deleteCourse({
           courseId,
           uId,
         });
       } catch (error) {
-        if(error instanceof Error)
-        if (error.message === "not authorized") redirect("/signin");
+        if (error instanceof Error)
+          if (error.message === "not authorized") redirect("/signin");
       }
       redirect("/profile");
     } else {
@@ -101,7 +101,7 @@ const CourseCard = ({
       break;
 
     default:
-      levelImg="complexity"
+      levelImg = "complexity"
       break;
   }
 
@@ -123,7 +123,7 @@ const CourseCard = ({
         <form action={handleAddCourse} className="absolute right-3 top-3 text-black">
           <button type="submit" data-tooltip="Добавить курс"
             className="after:content-[attr(data-tooltip)] after:opacity-0 after:transition-opacity after:rounded-md after:border after:border-black after:text-nowrap after:z-10 after:absolute after:top-10 after:left-6 after:bg-white after:text-[14px] after:p-1.5 hover:after:opacity-100"
-            >
+          >
             <svg className="w-[32px] h-[32px]">
               <use xlinkHref="/img/sprite.svg#icon-add" />
             </svg>

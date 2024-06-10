@@ -25,7 +25,7 @@ export async function signIn({ email, password }: { email: string, password: str
 export async function changePassword({ password }: { password: string }) {
     try {
         if (auth.currentUser === null) {
-            throw new Error("User is not logged in")
+            throw new Error("Пользователь не авторизован")
         } else {
             updatePassword(auth.currentUser, password)
         }

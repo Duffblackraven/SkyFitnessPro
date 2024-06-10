@@ -13,13 +13,13 @@ import { redirect } from "next/navigation";
 export default async function Home() {
 
 
- 
+
   const userName = cookies().get("email")?.value;
   if (!userName) {
     redirect("/signin")
   }
   const userId = cookies().get("uid")?.value;
-   if (!userId) {
+  if (!userId) {
     redirect("/signin")
   }
   let coursesUserId: string[] = [];
@@ -27,7 +27,7 @@ export default async function Home() {
   const data = await getUserCourses({ userId });
   const coursesUser = await mapCourses(data);
   coursesUser.map((item) => coursesUserId.push(item._id))
-  
+
   const courses = await getCourses();
   return (
     <>
