@@ -2,7 +2,8 @@ import { changePassword } from '@/api/auth';
 import Button from '@/components/shared/button';
 import Input from '@/components/shared/input/input';
 import Logo from '@/components/shared/logo';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { redirect } from "next/navigation";
 
 const ResetPasswordPage = () => {
   // const formFields = {
@@ -27,8 +28,9 @@ const ResetPasswordPage = () => {
       const response = await changePassword({ password })
       console.log(response)
     } catch (error) {
-      console.log(error)
+      console.log(error) 
     }
+    redirect("/profile");
   };
 
   return (

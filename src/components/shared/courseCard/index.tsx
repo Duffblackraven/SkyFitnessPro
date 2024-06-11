@@ -130,7 +130,7 @@ const CourseCard = ({
           </button>
         </form>
       )}
-      <Link href={`/course/${item._id}`} key={item._id}>
+      <Link href={{ pathname: `/course/${item._id}`, query: { isAdded }, }} key={item._id}>
         <Image src={img} alt={name} width={360} height={325} />
       </Link>
       <div className="pt-6 pb-4 px-5 text-black">

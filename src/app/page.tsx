@@ -12,8 +12,6 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
 
-
-
   const userName = cookies().get("email")?.value;
   if (!userName) {
     redirect("/signin")

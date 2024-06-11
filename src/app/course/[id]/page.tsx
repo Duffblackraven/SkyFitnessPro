@@ -33,14 +33,14 @@ const CoursePage = async ({ params }: { params: { id: string } }) => {
       <section className="mb-[60px]">
         <SecondaryHeading>Направления</SecondaryHeading>
 
-        <div className="grid grid-cols-3 gap-y-9 bg-bright-green p-[30px] rounded-small">
+        <div className="grid text-black grid-cols-3 gap-y-9 bg-bright-green p-[30px] rounded-small">
           {course.directions.map(
             (item: string, index: number) => <AreaBlock key={index} text={item} />
           )}
         </div>
         <div className="p-10 flex justify-between items-end bg-white rounded relative shadow-base h-[500px] mt-[100px]">
           <section className="w-[400px] flex flex-col items-center gap-8">
-            <h3 className="text-[50px] text-base font-semibold text-black">Начните путь к новому телу</h3>
+            <h3 className="text-[60px] leading-[65px] font-semibold text-black">Начните путь к новому телу</h3>
             <h3 className="text-[20px] text-gray-400">
               • проработка всех групп мышц <br />
               • тренировка суставов <br />
