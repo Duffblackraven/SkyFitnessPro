@@ -1,20 +1,16 @@
-"use client";
-
 import React from "react";
 import Button from "../shared/button";
 import { addCourse } from "@/api/api";
 import { auth } from "@/firebase/firebase";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 const InfoBlock = ({ courseId }: { courseId: string }) => {
-  const searchParams = useSearchParams(); 
-  const isAdded = searchParams.get('isAdded');
   const onClick = async () => {
     "use server";
     try {
       const userId = cookies().get("uid")?.value;
-      if (!userId) {
+      if(!userId){
         throw new Error("Пользователь не авторизован")
       }
       await addCourse({
@@ -22,8 +18,8 @@ const InfoBlock = ({ courseId }: { courseId: string }) => {
         userId,
       });
     } catch (error) {
-      if (error instanceof Error)
-        if (error.message === "Пользователь не авторизован") redirect("/signin");
+      if(error instanceof Error)
+      if (error.message === "Пользователь не авторизован") redirect("/signin");
     }
     redirect("/profile");
   };
