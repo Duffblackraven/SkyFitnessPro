@@ -11,7 +11,7 @@ const InfoBlock = ({ courseId }: { courseId: string }) => {
     try {
       const userId = cookies().get("uid")?.value;
       if(!userId){
-        throw new Error("not authorized")
+        throw new Error("Пользователь не авторизован")
       }
       await addCourse({
         courseId,
@@ -19,7 +19,7 @@ const InfoBlock = ({ courseId }: { courseId: string }) => {
       });
     } catch (error) {
       if(error instanceof Error)
-      if (error.message === "not authorized") redirect("/signin");
+      if (error.message === "Пользователь не авторизован") redirect("/signin");
     }
     redirect("/profile");
   };
@@ -31,6 +31,5 @@ const InfoBlock = ({ courseId }: { courseId: string }) => {
     </div>
   );
 };
-//будет меняться текст в кнопке, событие на кнопке
-//в зависимости от того, авторизован ли пользователь.
+
 export default InfoBlock;

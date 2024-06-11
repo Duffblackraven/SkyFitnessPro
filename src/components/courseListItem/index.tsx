@@ -5,7 +5,7 @@ type CourseListItem = {
   text: string,
 }
 
-const CourseListItem = ({number, text}:CourseListItem) => {
+const CourseListItem = ({ number, text }: CourseListItem) => {
   return (
     <div className='rounded-small bg-dark-gradient flex gap-x-6 items-center p-5'>
       <p className='text-3xl text-bright-green'>{number}</p>

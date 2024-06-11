@@ -10,7 +10,7 @@ export async function getCourses() {
   try {
     const response = await fetch(`${API_URL}/courses.json`);
     if (!response.ok) {
-      throw new Error("Заглушечка-хуеюшечка");
+      throw new Error("Ошибка");
     }
     const data = await response.json();
     console.log(data, "результат внутри апи");
@@ -25,7 +25,7 @@ export async function getWorkouts() {
   try {
     const response = await fetch(`${API_URL}/workouts.json`);
     if (!response.ok) {
-      throw new Error("Заглушечка-хуеюшечка");
+      throw new Error("Ошибка");
     }
     const data = await response.json();
     return transormData(data);
@@ -34,7 +34,7 @@ export async function getWorkouts() {
   }
 }
 //функция получить курс по айди
-export async function getCourseById({ id }: {id:string}) {
+export async function getCourseById({ id }: { id: string }) {
   console.log(id, "отличчали между собой");
   try {
     const response = await fetch(`${API_URL}/courses/${id}.json`);
@@ -50,11 +50,11 @@ export async function getCourseById({ id }: {id:string}) {
 }
 
 //функция получения воркаута по айди
-export async function getWorkoutById({ id }: {id:string}) {
+export async function getWorkoutById({ id }: { id: string }) {
   try {
     const response = await fetch(`${API_URL}/workouts/${id}.json`);
     if (!response.ok) {
-      throw new Error("Заглушечка-хуеюшечка");
+      throw new Error("Ошибка");
     }
     const data = await response.json();
     return data;
@@ -63,11 +63,11 @@ export async function getWorkoutById({ id }: {id:string}) {
   }
 }
 
-export async function getUserWorkoutById({ uId, workoutId, courseId }: {uId: string, workoutId: string, courseId: string}) {
+export async function getUserWorkoutById({ uId, workoutId, courseId }: { uId: string, workoutId: string, courseId: string }) {
   try {
     const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`);
     if (!response.ok) {
-      throw new Error("Заглушечка-хуеюшечка");
+      throw new Error("Ошибка");
     }
     const data = await response.json();
     return data;
@@ -76,9 +76,9 @@ export async function getUserWorkoutById({ uId, workoutId, courseId }: {uId: str
   }
 }
 
-export async function addCourse({ courseId, userId }: {courseId: string, userId:string}) {
+export async function addCourse({ courseId, userId }: { courseId: string, userId: string }) {
   if (!userId) {
-    throw new Error("not authorized");
+    throw new Error("Ошибка авторизации");
   }
 
   try {
@@ -93,21 +93,21 @@ export async function addCourse({ courseId, userId }: {courseId: string, userId:
       progress: number,
     }
     type accType = {
-      
-      [key:string]:{
+
+      [key: string]: {
         done: boolean,
         exercises: exerciseType[]
 
-        }
-      } 
-    
-    const progressObj = workouts.reduce((acc: {progress: number} | accType, workoutId: string, index: number) => {
+      }
+    }
+
+    const progressObj = workouts.reduce((acc: { progress: number } | accType, workoutId: string, index: number) => {
       const exercises = workoutsData[index].exercises;
       if (!exercises) {
         acc[workoutId] = { done: false };
       } else {
         acc[workoutId] = exercises.reduce(
-          (exerciseAcc: {done: boolean, exercises: exerciseType[]} , exercise: exerciseType, exerciseIndex: number) => {
+          (exerciseAcc: { done: boolean, exercises: exerciseType[] }, exercise: exerciseType, exerciseIndex: number) => {
             exerciseAcc.exercises[exerciseIndex] = {
               name: exercise.name,
               quantity: exercise.quantity,
@@ -115,13 +115,14 @@ export async function addCourse({ courseId, userId }: {courseId: string, userId:
             };
             return exerciseAcc;
           },
-          {done:false,
+          {
+            done: false,
             exercises: {},
           }
         );
       }
       return acc;
-    }, {progress: 0});
+    }, { progress: 0 });
 
     const response = await fetch(
       `${API_URL}/users/${userId}/${courseId}.json`,
@@ -132,7 +133,7 @@ export async function addCourse({ courseId, userId }: {courseId: string, userId:
     );
 
     if (!response.ok) {
-      throw new Error("Не получилось обновить данные");
+      throw new Error("Ошибка обновления данных");
     }
 
     return response.json();
@@ -141,7 +142,7 @@ export async function addCourse({ courseId, userId }: {courseId: string, userId:
   }
 }
 
-export async function getUserCourses({ userId }: {userId: string}) {
+export async function getUserCourses({ userId }: { userId: string }) {
   if (!userId) {
     throw new Error("Нет");
   }
@@ -149,7 +150,7 @@ export async function getUserCourses({ userId }: {userId: string}) {
     console.log(userId);
     const response = await fetch(`${API_URL}/users/${userId}.json`);
     if (!response.ok) {
-      throw new Error("Не получилось загрузить курсы");
+      throw new Error("Ошибка загрузки курсов");
     }
 
     const data = await response.json();
@@ -160,18 +161,18 @@ export async function getUserCourses({ userId }: {userId: string}) {
   }
 }
 type workoutType = {
-id: string,
-name: string,
-done: boolean,
+  id: string,
+  name: string,
+  done: boolean,
 }
-export async function getCourseWorkouts({ id }: {id: string}) {
- 
+export async function getCourseWorkouts({ id }: { id: string }) {
+
   try {
     const { workouts } = await getCourseById({ id });
 
     const workoutData = await Promise.all(
       workouts.map((workout: string) => getUserWorkoutById({ workoutId: workout, uId: cookies().get("uid")?.value || "", courseId: id }))
-    ); console.log(workoutData, "typaya zalupa blyta hyli ti ne rabotaesh to blyat a")
+    ); console.log(workoutData, "Ошибка, попробуйте снова")
     const workoutNames = await Promise.all(
       workouts.map((workout: string) => getWorkoutById({ id: workout }))
     );
@@ -191,17 +192,19 @@ export async function getCourseWorkouts({ id }: {id: string}) {
   }
 }
 
-export const getUserProgress = async ({ uId, courseId, workoutId }: {uId: string, courseId: string, workoutId: string}) => {
+export const getUserProgress = async ({ uId, courseId, workoutId }: { uId: string, courseId: string, workoutId: string }) => {
   console.log(uId, courseId, workoutId);
   try {
     const response = await fetch(
       `${API_URL}/users/${uId}/${courseId}/${workoutId}.json`,
-      {next: {
-        tags: ["progress"]
-      }}
+      {
+        next: {
+          tags: ["progress"]
+        }
+      }
     );
     if (!response.ok) {
-      throw new Error("Заглушечка-хуюшечка");
+      throw new Error("Ошибка");
     }
     return await response.json();
   } catch (error) {
@@ -211,7 +214,7 @@ export const getUserProgress = async ({ uId, courseId, workoutId }: {uId: string
 };
 
 
-export const updateUserProgress = async ({ uId, courseId, workoutId, progress }: {uId: string, courseId: string, workoutId: string, progress: {done: boolean}}) => {
+export const updateUserProgress = async ({ uId, courseId, workoutId, progress }: { uId: string, courseId: string, workoutId: string, progress: { done: boolean } }) => {
   try {
     const response = await fetch(`${API_URL}/users/${uId}/${courseId}/${workoutId}.json`,
       {
@@ -222,7 +225,7 @@ export const updateUserProgress = async ({ uId, courseId, workoutId, progress }:
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    await updateCourseProgress({courseId, uId})
+    await updateCourseProgress({ courseId, uId })
     return await response.json();
   } catch (error) {
 
@@ -231,12 +234,12 @@ export const updateUserProgress = async ({ uId, courseId, workoutId, progress }:
 }
 
 
-export const updateCourseProgress = async ({ courseId, uId }:{uId: string, courseId: string}) => {
+export const updateCourseProgress = async ({ courseId, uId }: { uId: string, courseId: string }) => {
   try {
     const data = await getCourseWorkouts({ id: courseId })
-    console.log(data, "залупа номер одиен")
-    const progress = data.reduce((acc: number, elem: {done: boolean}) => elem.done ? acc + 1 : acc, 0) / data.length * 100
-    console.log(progress, "ЗАЛУПА ЕБАНАЯ")
+    console.log(data, "курсы")
+    const progress = data.reduce((acc: number, elem: { done: boolean }) => elem.done ? acc + 1 : acc, 0) / data.length * 100
+    console.log(progress, "прогресс")
     const response = await fetch(`${API_URL}/users/${uId}/${courseId}/progress.json`,
       {
         method: "PUT",
@@ -252,9 +255,9 @@ export const updateCourseProgress = async ({ courseId, uId }:{uId: string, cours
   }
 }
 
-export async function deleteCourse({ courseId, uId }: {uId: string, courseId: string}) {
+export async function deleteCourse({ courseId, uId }: { uId: string, courseId: string }) {
   if (!uId) {
-    throw new Error("not authorized");
+    throw new Error("Ошибка авторизации");
   }
 
   try {
@@ -266,7 +269,7 @@ export async function deleteCourse({ courseId, uId }: {uId: string, courseId: st
     );
 
     if (!response.ok) {
-      throw new Error("Не получилось удалить курс");
+      throw new Error("Ошибка удаления курса");
     }
 
     return response.json();
