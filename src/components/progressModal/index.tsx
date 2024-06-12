@@ -5,7 +5,7 @@ import { exerciseType } from '@/types/types'
 
 const ProgressModal = ({ exercise, action }: {exercise?: exerciseType[], action: (data: FormData) => Promise<void>}) => {
   return (
-    <form action={action} className='fixed top-[15%] left-[37%] w-[426px]'>
+    <form action={action} className='absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 w-[426px]'>
       <ModalBox title={"Мой прогресс"} buttonTitle={"Сохранить"}>
 
 

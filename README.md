@@ -1,6 +1,6 @@
-# SkyFitnessPro
+# SkyFitnessPro: приложение для фитнеса.
 
-# Deploy:
+# Deploy:https://skyfitnessproultimate.netlify.app/
 
 # Страница курсов (главная).
 
