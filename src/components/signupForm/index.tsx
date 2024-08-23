@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import Button from "../shared/button";
 import Input from "../shared/input/input";
@@ -7,7 +8,7 @@ import { useFormState } from "react-dom";
 import { handleSignup } from "@/actions";
 
 export const SignUpForm = () => {
-  const [state, formAction] = useFormState( handleSignup, { message: "" });
+  const [state, formAction] = useFormState(handleSignup, { message: "" });
   return (
     <form className="grid gap-y-2.5" action={formAction}>
       <Input type={"email"} name={"email"} placeholder={"Эл. почта"} />

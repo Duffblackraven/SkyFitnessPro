@@ -88,11 +88,10 @@ const WorkoutPage = async ({ params }: { params: { id: string } }) => {
   return (
     <div className="relative h-screen">
       <div
-        className={`${
-          params.id[2] === "progress" || params.id[2] === "modalSuccess"
+        className={`${params.id[2] === "progress" || params.id[2] === "modalSuccess"
             ? "fixed top-0 left-0 w-full h-full bg-gray-500 opacity-50"
             : ""
-        }`}
+          }`}
         z
       ></div>
       <Header userName={userName} />
@@ -105,16 +104,16 @@ const WorkoutPage = async ({ params }: { params: { id: string } }) => {
           <div className="grid grid-cols-3 justify-between gap-5 mt-5 ">
             {workout.exercises
               ? workout.exercises.map((ex, index: number) => (
-                  <ExerciseBlock
-                    key={index}
-                    progress={
-                      (progress?.exercises[index].progress /
-                        progress?.exercises[index].quantity) *
-                      100
-                    }
-                    title={ex.name}
-                  />
-                ))
+                <ExerciseBlock
+                  key={index}
+                  progress={
+                    (progress?.exercises[index].progress /
+                      progress?.exercises[index].quantity) *
+                    100
+                  }
+                  title={ex.name}
+                />
+              ))
               : "Упражнений нет"}
           </div>
           <div className="w-[320px] mt-10 text-black">

@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../button'
 
-const ModalBox = ({ buttonTitle, title, children }: {buttonTitle: string, title: string, children: React.ReactNode}) => {
+const ModalBox = ({ buttonTitle, title, children }: { buttonTitle: string, title: string, children: React.ReactNode }) => {
   return (
 
     <div className='overflow-auto bg-white p-8 w-360px max-h-[595px] min-h-48 rounded-lg flex flex-col justify-between shadow-md gap-[10px]'>
@@ -11,5 +11,5 @@ const ModalBox = ({ buttonTitle, title, children }: {buttonTitle: string, title:
     </div>
   )
 }
-// используется везде.белый  блок
+
 export default ModalBox
